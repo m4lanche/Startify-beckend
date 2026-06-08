@@ -3,709 +3,291 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Startify — AI Business Advisor for Teens</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <title>Startify — Turn Your Idea Into a Real Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #ffffff; --bg2: #f7f7f5; --bg3: #f0efe9;
-      --text: #1a1a18; --text2: #6b6b67; --text3: #9e9d98;
-      --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.18);
-      --green: #3B6D11; --green-bg: #EAF3DE; --green-text: #3B6D11;
-      --blue: #185FA5; --blue-bg: #E6F1FB; --blue-text: #185FA5;
-      --orange: #B45309; --orange-bg: #FEF3C7;
-      --radius: 10px; --radius-lg: 14px;
+      --bg: #0A0E14;
+      --bg2: #0F1520;
+      --bg3: #141C28;
+      --card: #111825;
+      --card2: #161F2E;
+      --text: #EDF2F8;
+      --text2: #8A9BB5;
+      --text3: #4A5B72;
+      --border: rgba(100,150,220,0.1);
+      --border2: rgba(100,150,220,0.2);
+      --cyan: #00C8E0;
+      --cyan2: #00A8C0;
+      --cyan-dim: #00C8E015;
+      --cyan-glow: rgba(0,200,224,0.15);
+      --blue: #2D7DD2;
+      --blue2: #1A5FAA;
+      --blue-dim: rgba(45,125,210,0.12);
+      --white: #EDF2F8;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
     }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg3); color: var(--text); min-height: 100vh; }
-    nav { background: var(--bg); border-bottom: 0.5px solid var(--border); padding: 0 1.5rem; height: 52px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-    .nav-logo { font-size: 17px; font-weight: 600; }
-    .nav-logo span { color: var(--green); }
-    .nav-right { display: flex; gap: 10px; }
-    .btn { padding: 7px 16px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: var(--bg); font-size: 13px; font-weight: 500; color: var(--text); cursor: pointer; }
-    .btn:hover { background: var(--bg2); }
-    .btn-primary { background: var(--text); color: #fff; border-color: var(--text); }
-    .btn-primary:hover { opacity: 0.85; background: var(--text); }
-    .page { display: none; }
-    .page.active { display: block; }
-
-    /* HERO */
-    .hero { max-width: 580px; margin: 0 auto; padding: 5rem 1.5rem 3rem; text-align: center; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--green-bg); color: var(--green-text); font-size: 12px; padding: 5px 14px; border-radius: 99px; margin-bottom: 1.5rem; font-weight: 500; }
-    .hero h1 { font-size: 42px; font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
-    .hero h1 span { color: var(--green); }
-    .hero p { font-size: 17px; color: var(--text2); line-height: 1.6; margin-bottom: 2rem; }
-    .hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .hero-btns .btn { font-size: 15px; padding: 10px 24px; }
-    .plans { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
-    .plans-title { text-align: center; font-size: 22px; font-weight: 600; margin-bottom: 0.5rem; }
-    .plans-sub { text-align: center; font-size: 14px; color: var(--text2); margin-bottom: 2rem; }
-    .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .plan-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
-    .plan-card.featured { border: 2px solid var(--text); }
-    .plan-name { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .plan-price { font-size: 36px; font-weight: 700; margin-bottom: 0.25rem; }
-    .plan-price span { font-size: 14px; font-weight: 400; color: var(--text2); }
-    .plan-desc { font-size: 13px; color: var(--text2); margin-bottom: 1.25rem; line-height: 1.5; }
-    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-    .plan-features li { font-size: 13px; display: flex; gap: 8px; align-items: flex-start; }
-    .plan-features li i { color: var(--green); font-size: 15px; margin-top: 1px; flex-shrink: 0; }
-    .plan-features li.muted { color: var(--text3); }
-    .plan-features li.muted i { color: var(--text3); }
-
-    /* GENERATOR */
-    .app-wrap { max-width: 600px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-    .app-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-    .app-header { padding: 1.25rem 1.5rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .app-header-title { font-size: 15px; font-weight: 600; }
-    .app-header-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
-    .step-indicator { display: flex; gap: 5px; }
-    .step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); }
-    .step-dot.active { background: var(--text); }
-    .step-dot.done { background: var(--green); }
-    .app-body { padding: 1.5rem; }
-    .q-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-    .q-text { font-size: 17px; font-weight: 600; margin-bottom: 1.25rem; line-height: 1.4; }
-    .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
-    .opt { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 0.875rem 1rem; cursor: pointer; text-align: left; }
-    .opt:hover { background: var(--bg2); }
-    .opt.sel { border: 1.5px solid var(--text); background: var(--bg2); }
-    .opt-icon { font-size: 20px; margin-bottom: 4px; display: block; }
-    .opt-label { font-size: 13px; font-weight: 500; display: block; }
-    .opt-desc { font-size: 11px; color: var(--text2); margin-top: 2px; display: block; }
-    .next-btn { width: 100%; padding: 0.75rem; border-radius: var(--radius); border: none; background: var(--text); color: #fff; font-size: 14px; font-weight: 500; cursor: pointer; }
-    .next-btn:disabled { background: var(--bg3); color: var(--text3); cursor: not-allowed; }
-    .loading { text-align: center; padding: 3rem 1.5rem; }
-    .spinner { width: 32px; height: 32px; border: 2px solid var(--border2); border-top-color: var(--text); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loading p { font-size: 14px; color: var(--text2); }
-    .result-section { margin-bottom: 1rem; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.125rem 1.25rem; }
-    .result-badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 99px; background: var(--green-bg); color: var(--green-text); margin-bottom: 0.75rem; font-weight: 500; }
-    .result-title { font-size: 17px; font-weight: 600; margin-bottom: 0.5rem; }
-    .result-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
-    .steps-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 0.75rem; }
-    .steps-list li { font-size: 13px; color: var(--text2); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
-    .steps-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--border2); margin-top: 7px; flex-shrink: 0; }
-    .encourage { background: var(--green-bg); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem; font-size: 14px; color: var(--green-text); line-height: 1.6; }
-    .upgrade-banner { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem; }
-    .ub-text { flex: 1; }
-    .ub-title { font-size: 13px; font-weight: 600; }
-    .ub-desc { font-size: 12px; color: var(--text2); margin-top: 2px; }
-    .restart-btn { width: 100%; padding: 0.65rem; border-radius: var(--radius); border: 0.5px solid var(--border); background: transparent; font-size: 13px; color: var(--text2); cursor: pointer; margin-top: 0.75rem; }
-
-    /* AI TOOLS */
-    .tools-section { margin-bottom: 1rem; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.125rem 1.25rem; }
-    .tools-title { font-size: 14px; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px; }
-    .tools-title i { color: var(--green); }
-    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .tool-card { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 0.75rem; }
-    .tool-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .tool-desc { font-size: 11px; color: var(--text2); line-height: 1.4; }
-    .tool-badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 99px; background: var(--blue-bg); color: var(--blue-text); margin-top: 5px; }
-
-    /* FREE CHAT */
-    .free-chat-wrap { max-width: 600px; margin: 0 auto; padding: 0 1.5rem 4rem; }
-    .free-chat-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-    .free-chat-header { padding: 1rem 1.25rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .free-chat-title { font-size: 14px; font-weight: 600; }
-    .msg-counter { font-size: 12px; color: var(--text2); background: var(--bg2); padding: 4px 10px; border-radius: 99px; border: 0.5px solid var(--border); }
-    .msg-counter.low { color: var(--orange); background: var(--orange-bg); border-color: rgba(180,83,9,0.2); }
-    .free-messages { height: 280px; overflow-y: auto; padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 10px; }
-    .limit-banner { background: var(--orange-bg); border: 0.5px solid rgba(180,83,9,0.2); border-radius: var(--radius); padding: 1rem 1.25rem; margin: 0.75rem; }
-    .limit-banner-title { font-size: 13px; font-weight: 600; color: var(--orange); margin-bottom: 4px; }
-    .limit-banner-desc { font-size: 12px; color: var(--orange); margin-bottom: 8px; }
-    .limit-timer { font-size: 13px; font-weight: 600; color: var(--orange); margin-top: 6px; }
-    .free-input-row { padding: 0.75rem 1.25rem; border-top: 0.5px solid var(--border); display: flex; gap: 8px; align-items: flex-end; }
-    .free-input-row textarea { flex: 1; min-height: 36px; max-height: 80px; resize: none; border-radius: var(--radius); border: 0.5px solid var(--border); padding: 8px 12px; font-size: 13px; font-family: inherit; color: var(--text); background: var(--bg); line-height: 1.4; }
-    .free-input-row textarea:focus { outline: none; }
-    .free-input-row textarea:disabled { background: var(--bg2); color: var(--text3); cursor: not-allowed; }
-
-    /* PREMIUM */
-    .premium-wrap { max-width: 780px; margin: 0 auto; padding: 1.5rem; }
-    .premium-shell { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; display: flex; height: 600px; }
-    .sidebar { width: 210px; border-right: 0.5px solid var(--border); display: flex; flex-direction: column; background: var(--bg2); flex-shrink: 0; }
-    .sb-top { padding: 1rem; border-bottom: 0.5px solid var(--border); }
-    .sb-logo { font-size: 15px; font-weight: 600; }
-    .sb-logo span { color: var(--green); }
-    .sb-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 99px; background: var(--green-bg); color: var(--green-text); margin-top: 4px; font-weight: 500; }
-    .sb-section { padding: 0.75rem 1rem 0.25rem; font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
-    .sb-nav { display: flex; align-items: center; gap: 8px; padding: 7px 1rem; font-size: 13px; color: var(--text2); cursor: pointer; }
-    .sb-nav:hover { background: var(--bg); }
-    .sb-nav.active { color: var(--text); background: var(--bg); font-weight: 500; }
-    .sb-nav i { font-size: 15px; }
-    .sb-bottom { margin-top: auto; padding: 0.875rem 1rem; border-top: 0.5px solid var(--border); }
-    .sb-user { display: flex; align-items: center; gap: 8px; }
-    .sb-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--blue-bg); color: var(--blue-text); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-    .sb-uname { font-size: 12px; font-weight: 500; }
-    .sb-uplan { font-size: 11px; color: var(--text3); }
-    .chat-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-    .chat-header { padding: 0.875rem 1.25rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; gap: 10px; }
-    .chat-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg2); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; }
-    .chat-avatar i { font-size: 16px; color: var(--text2); }
-    .chat-info .ci-title { font-size: 14px; font-weight: 600; }
-    .chat-info .ci-sub { font-size: 12px; color: var(--text3); }
-    .online { width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-left: auto; }
-    .messages { flex: 1; overflow-y: auto; padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 12px; }
-    .msg { display: flex; gap: 8px; align-items: flex-start; }
-    .msg.user { flex-direction: row-reverse; }
-    .msg-av { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
-    .msg-av.ai { background: var(--bg2); border: 0.5px solid var(--border); color: var(--text2); }
-    .msg-av.me { background: var(--blue-bg); color: var(--blue-text); }
-    .msg-bubble { max-width: 78%; padding: 8px 12px; border-radius: var(--radius); font-size: 13px; line-height: 1.55; }
-    .msg.ai .msg-bubble { background: var(--bg2); color: var(--text); border: 0.5px solid var(--border); }
-    .msg.user .msg-bubble { background: var(--blue-bg); color: var(--blue-text); }
-    .msg-time { font-size: 10px; color: var(--text3); margin-top: 3px; }
-    .typing-ind { display: flex; align-items: center; gap: 4px; padding: 10px 12px; background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); width: fit-content; }
-    .typing-ind span { width: 5px; height: 5px; border-radius: 50%; background: var(--text3); animation: bounce 1.2s infinite; }
-    .typing-ind span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-ind span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
-    .chips { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 1.25rem 0.5rem; }
-    .chip { font-size: 11px; padding: 4px 10px; border-radius: 99px; border: 0.5px solid var(--border); background: var(--bg2); color: var(--text2); cursor: pointer; white-space: nowrap; }
-    .chip:hover { color: var(--text); }
-    .input-row { padding: 0.75rem 1.25rem; border-top: 0.5px solid var(--border); display: flex; gap: 8px; align-items: flex-end; }
-    .input-row textarea { flex: 1; min-height: 36px; max-height: 100px; resize: none; border-radius: var(--radius); border: 0.5px solid var(--border); padding: 8px 12px; font-size: 13px; font-family: inherit; color: var(--text); background: var(--bg); line-height: 1.4; }
-    .input-row textarea:focus { outline: none; }
-    .send-btn { width: 34px; height: 34px; border-radius: var(--radius); border: none; background: var(--text); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .send-btn i { font-size: 15px; }
-    .panel { flex: 1; overflow-y: auto; padding: 1.25rem; display: none; flex-direction: column; gap: 10px; }
-    .panel.open { display: flex; }
-    .panel-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .wk { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 0.875rem 1rem; }
-    .wk-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
-    .wk-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
-    .wk-tasks { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-    .wk-tasks li { font-size: 12px; color: var(--text2); display: flex; gap: 6px; align-items: flex-start; line-height: 1.5; }
-    .wk-tasks li i { font-size: 13px; margin-top: 1px; flex-shrink: 0; }
-    .wk-tasks li.done { color: var(--text3); text-decoration: line-through; }
-    .wk-tasks li.done i { color: var(--green); }
-    .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-    .stat-c { background: var(--bg2); border-radius: var(--radius); padding: 0.875rem; }
-    .stat-l { font-size: 10px; color: var(--text3); margin-bottom: 4px; }
-    .stat-v { font-size: 22px; font-weight: 700; }
-    .milestone { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 0.5px solid var(--border); border-radius: var(--radius); background: var(--bg); }
-    .milestone i { font-size: 16px; }
-    .m-text { font-size: 13px; }
-    .m-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
-    .milestone.done .m-text { text-decoration: line-through; color: var(--text3); }
-    @media (max-width: 600px) {
-      .plans-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 30px; }
-      .sidebar { width: 52px; }
-      .sb-nav span, .sb-top .sb-logo, .sb-badge, .sb-section, .sb-uname, .sb-uplan { display: none; }
-      .sb-nav { justify-content: center; padding: 10px; }
-      .premium-wrap { padding: 0.75rem; }
-      .tools-grid { grid-template-columns: 1fr; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,14,20,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; align-items: center; gap: 12px; }
+    .nav-link { font-size: 14px; color: var(--text2); text-decoration: none; }
+    .nav-link:hover { color: var(--text); }
+    .nav-cta { background: var(--cyan); color: var(--bg); border: none; padding: 9px 20px; border-radius: 99px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: opacity 0.15s; }
+    .nav-cta:hover { opacity: 0.85; }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 1.5rem 4rem; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(0,200,224,0.12) 0%, transparent 65%), radial-gradient(ellipse 50% 40% at 90% 90%, rgba(45,125,210,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 10% 80%, rgba(0,168,192,0.06) 0%, transparent 60%); }
+    .grid-overlay { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(100,150,220,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(100,150,220,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .hero-content { position: relative; z-index: 1; max-width: 720px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,200,224,0.08); border: 0.5px solid rgba(0,200,224,0.25); border-radius: 99px; padding: 6px 16px; font-size: 12px; font-weight: 500; color: var(--cyan); margin-bottom: 2rem; animation: fadeUp 0.6s ease both; }
+    .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(40px, 7vw, 80px); font-weight: 800; line-height: 1.05; letter-spacing: -2.5px; color: var(--text); margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.1s ease both; }
+    .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 18px; color: var(--text2); line-height: 1.65; margin-bottom: 2.5rem; font-weight: 300; max-width: 520px; margin-left: auto; margin-right: auto; animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
+    .btn-big { padding: 14px 28px; border-radius: 99px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s; }
+    .btn-big:hover { transform: translateY(-1px); }
+    .btn-solid { background: var(--cyan); color: var(--bg); border: none; font-weight: 600; box-shadow: 0 0 30px rgba(0,200,224,0.25), 0 4px 20px rgba(0,200,224,0.15); }
+    .btn-solid:hover { opacity: 0.9; box-shadow: 0 0 40px rgba(0,200,224,0.35), 0 6px 24px rgba(0,200,224,0.2); }
+    .btn-outline { background: transparent; color: var(--text); border: 0.5px solid var(--border2); }
+    .btn-outline:hover { background: var(--card); border-color: rgba(0,200,224,0.3); }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; animation: fadeUp 0.6s 0.5s ease both; }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--cyan), transparent); animation: scrollPulse 2s infinite; }
+    @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+    .section { padding: 6rem 1.5rem; }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+    .section-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+    .section-tag::before { content:''; width:24px; height:1px; background:var(--cyan); }
+    .section-title { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; color: var(--text); margin-bottom: 1.5rem; }
+    .section-title span { background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .problem-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 3rem; }
+    .problem-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+    .problem-card:hover { border-color: rgba(0,200,224,0.3); transform: translateY(-2px); }
+    .problem-icon { font-size: 28px; margin-bottom: 0.75rem; display: block; }
+    .problem-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+    .problem-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    .how-bg { background: var(--bg2); }
+    .steps-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3rem; position: relative; }
+    .steps-row::before { content: ''; position: absolute; top: 28px; left: calc(16.66% + 1rem); right: calc(16.66% + 1rem); height: 1px; background: repeating-linear-gradient(90deg, rgba(0,200,224,0.3) 0, rgba(0,200,224,0.3) 6px, transparent 6px, transparent 12px); }
+    .step { text-align: center; position: relative; z-index: 1; }
+    .step-num { width: 56px; height: 56px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--cyan); box-shadow: 0 0 20px rgba(0,200,224,0.2); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--cyan); margin: 0 auto 1.25rem; }
+    .step-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+    .step-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
+    .feature { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; transition: border-color 0.2s, transform 0.2s; }
+    .feature:hover { border-color: rgba(0,200,224,0.25); transform: translateY(-2px); }
+    .feature-icon { width: 42px; height: 42px; border-radius: var(--radius); background: var(--cyan-dim); border: 0.5px solid rgba(0,200,224,0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .feature-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .feature-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    .proof-bg { background: var(--bg2); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .quotes-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 3rem; }
+    .quote-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; transition: border-color 0.2s; }
+    .quote-card:hover { border-color: rgba(0,200,224,0.25); }
+    .quote-stars { color: var(--cyan); font-size: 13px; margin-bottom: 0.75rem; letter-spacing: 2px; }
+    .quote-text { font-size: 14px; color: var(--text2); line-height: 1.65; margin-bottom: 1rem; font-style: italic; font-weight: 300; }
+    .quote-author { font-size: 12px; color: var(--cyan); font-weight: 600; }
+    .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; max-width: 720px; margin-left: auto; margin-right: auto; }
+    .plan-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-xl); padding: 2rem; transition: border-color 0.2s; }
+    .plan-card:hover { border-color: var(--border2); }
+    .plan-card.featured { background: linear-gradient(160deg, rgba(0,200,224,0.08) 0%, rgba(45,125,210,0.05) 100%); border: 1px solid rgba(0,200,224,0.3); position: relative; overflow: hidden; box-shadow: 0 0 60px rgba(0,200,224,0.06); }
+    .plan-card.featured:hover { border-color: rgba(0,200,224,0.5); }
+    .plan-card.featured::before { content: 'Most popular'; position: absolute; top: 1.25rem; right: 1.25rem; background: rgba(0,200,224,0.15); color: var(--cyan); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.06em; border: 0.5px solid rgba(0,200,224,0.3); }
+    .plan-name { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.75rem; }
+    .plan-card.featured .plan-name { color: var(--cyan); }
+    .plan-price { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 0.25rem; color: var(--text); }
+    .plan-card.featured .plan-price { background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .plan-price sub { font-size: 15px; font-weight: 400; letter-spacing: 0; }
+    .plan-price sup { font-size: 22px; }
+    .plan-desc { font-size: 13px; color: var(--text2); margin-bottom: 1.5rem; line-height: 1.5; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.75rem; }
+    .plan-features li { font-size: 13px; color: var(--text2); display: flex; gap: 8px; align-items: flex-start; }
+    .plan-features li .check { color: var(--cyan); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .plan-features li.dim { color: var(--text3); }
+    .plan-features li.dim .check { color: var(--text3); }
+    .plan-btn { width: 100%; padding: 12px; border-radius: 99px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: block; text-align: center; transition: all 0.15s; }
+    .plan-btn-ghost { background: transparent; color: var(--text2); border: 0.5px solid var(--border2); }
+    .plan-btn-ghost:hover { background: var(--card2); color: var(--text); }
+    .plan-btn-solid { background: var(--cyan); color: var(--bg); border: none; font-weight: 700; box-shadow: 0 0 25px rgba(0,200,224,0.2); }
+    .plan-btn-solid:hover { opacity: 0.9; box-shadow: 0 0 35px rgba(0,200,224,0.3); }
+    .cta-section { padding: 8rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 400px; border-radius: 50%; background: radial-gradient(ellipse, rgba(0,200,224,0.07) 0%, transparent 70%); pointer-events: none; }
+    .cta-inner { position: relative; z-index: 1; max-width: 580px; margin: 0 auto; }
+    .cta-title { font-family: 'Syne', sans-serif; font-size: clamp(32px, 5vw, 60px); font-weight: 800; letter-spacing: -2px; line-height: 1.05; margin-bottom: 1.25rem; color: var(--text); }
+    .cta-title span { background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .cta-sub { font-size: 17px; color: var(--text2); margin-bottom: 2.5rem; line-height: 1.6; font-weight: 300; }
+    .cta-note { font-size: 12px; color: var(--text3); margin-top: 1rem; }
+    footer { padding: 1.75rem 2rem; border-top: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: var(--text); }
+    .footer-logo span { color: var(--cyan); }
+    .footer-text { font-size: 12px; color: var(--text3); }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity:0; transform:translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .glow-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,200,224,0.3), transparent); }
+    @media (max-width: 700px) {
+      .problem-grid, .features-grid, .quotes-grid, .plans-grid { grid-template-columns: 1fr; }
+      .steps-row { grid-template-columns: 1fr; }
+      .steps-row::before { display: none; }
+      nav { padding: 1rem; }
+      .nav-links .nav-link { display: none; }
+      footer { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 <nav>
   <div class="nav-logo">Start<span>ify</span></div>
-  <div class="nav-right">
-    <button class="btn" onclick="showPage('home')">Home</button>
-    <button class="btn" onclick="showPage('generator')">Try free</button>
-    <button class="btn btn-primary" onclick="showPage('premium')">Premium ✦</button>
+  <div class="nav-links">
+    <a href="#how" class="nav-link">How it works</a>
+    <a href="#plans" class="nav-link">Pricing</a>
+    <a href="https://startify-beckend.vercel.app" class="nav-cta">Try for free →</a>
   </div>
 </nav>
-
-<!-- HOME -->
-<div class="page active" id="page-home">
-  <div class="hero">
-    <div class="hero-badge">✦ Built by a teen, for teens</div>
-    <h1>Turn your idea into a real <span>business</span></h1>
-    <p>Startify is your AI business advisor. Get a personalized business idea, a step-by-step plan, and an AI mentor — built specifically for teenagers.</p>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><div class="eyebrow-dot"></div> Built by a teen, for teens</div>
+    <h1>Your idea deserves to become a real <em>business</em></h1>
+    <p class="hero-sub">Startify is the AI advisor that helps teenagers go from "I have an idea" to actually making money — step by step, no experience needed.</p>
     <div class="hero-btns">
-      <button class="btn btn-primary" onclick="showPage('generator')">Get my business idea — free</button>
-      <button class="btn" onclick="showPage('premium')">See premium features</button>
+      <a href="https://startify-beckend.vercel.app" class="btn-big btn-solid">Get my business idea — free →</a>
+      <a href="#how" class="btn-big btn-outline">See how it works</a>
     </div>
   </div>
-  <div class="plans">
-    <div class="plans-title">Simple pricing</div>
-    <div class="plans-sub">Start free. Upgrade when you're ready.</div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+<div class="glow-divider"></div>
+<section class="section" id="problem">
+  <div class="section-inner">
+    <div class="section-tag reveal">The problem</div>
+    <h2 class="section-title reveal">Most teens have ideas.<br><span>Nobody teaches them what to do next.</span></h2>
+    <div class="problem-grid">
+      <div class="problem-card reveal"><span class="problem-icon">😵‍💫</span><div class="problem-title">Too overwhelming</div><div class="problem-desc">There's so much information online that it's impossible to know where to actually start. So most teens do nothing.</div></div>
+      <div class="problem-card reveal"><span class="problem-icon">💸</span><div class="problem-title">No money to invest</div><div class="problem-desc">Most business advice assumes you have thousands to spend. Teens need ideas that work with $0 and a phone.</div></div>
+      <div class="problem-card reveal"><span class="problem-icon">🕐</span><div class="problem-title">School gets in the way</div><div class="problem-desc">Between classes, homework and everything else — teens need a business that fits around their life, not the other way around.</div></div>
+    </div>
+  </div>
+</section>
+<div class="glow-divider"></div>
+<section class="section how-bg" id="how">
+  <div class="section-inner">
+    <div class="section-tag reveal">How it works</div>
+    <h2 class="section-title reveal">From idea to income<br><span>in 3 simple steps</span></h2>
+    <div class="steps-row">
+      <div class="step reveal"><div class="step-num">1</div><div class="step-title">Answer 4 questions</div><div class="step-desc">Tell Startify what you're into, how much time you have, your budget, and your biggest fear. Takes 2 minutes.</div></div>
+      <div class="step reveal"><div class="step-num">2</div><div class="step-title">Get your personalized idea</div><div class="step-desc">The AI generates a business idea made for YOU — with real AI tools to help you build it fast.</div></div>
+      <div class="step reveal"><div class="step-num">3</div><div class="step-title">Start building today</div><div class="step-desc">Get your first 4 action steps, chat with your AI mentor, and follow your 8-week roadmap to your first dollar.</div></div>
+    </div>
+  </div>
+</section>
+<div class="glow-divider"></div>
+<section class="section" id="features">
+  <div class="section-inner">
+    <div class="section-tag reveal">What you get</div>
+    <h2 class="section-title reveal">Everything a teen needs<br><span>to actually start</span></h2>
+    <div class="features-grid">
+      <div class="feature reveal"><div class="feature-icon">💡</div><div><div class="feature-title">AI Business Idea Generator</div><div class="feature-desc">Answer 4 questions and get a personalized business idea that fits your interests, schedule, and budget.</div></div></div>
+      <div class="feature reveal"><div class="feature-icon">🤖</div><div><div class="feature-title">AI Mentor Chatbot</div><div class="feature-desc">A personal AI coach that knows your business and helps you solve problems, stay motivated, and keep moving.</div></div></div>
+      <div class="feature reveal"><div class="feature-icon">🛠️</div><div><div class="feature-title">AI Tool Recommendations</div><div class="feature-desc">Get 4 real AI tools hand-picked for your specific business idea so you can build faster and smarter.</div></div></div>
+      <div class="feature reveal"><div class="feature-icon">🗺️</div><div><div class="feature-title">8-Week Roadmap</div><div class="feature-desc">A week-by-week plan broken into small school-friendly tasks. No overwhelm — just clear next steps every day.</div></div></div>
+      <div class="feature reveal"><div class="feature-icon">📊</div><div><div class="feature-title">Progress Tracker</div><div class="feature-desc">See your milestones, track your days active, and watch yourself get closer to your first sale.</div></div></div>
+      <div class="feature reveal"><div class="feature-icon">⚡</div><div><div class="feature-title">Unstuck Button</div><div class="feature-desc">Feeling stuck or unmotivated? One tap gives you one tiny action you can take right now to keep going.</div></div></div>
+    </div>
+  </div>
+</section>
+<div class="glow-divider"></div>
+<section class="section proof-bg">
+  <div class="section-inner">
+    <div class="section-tag reveal">What teens are saying</div>
+    <h2 class="section-title reveal">Real reactions from<br><span>real teenagers</span></h2>
+    <div class="quotes-grid">
+      <div class="quote-card reveal"><div class="quote-stars">★★★★★</div><div class="quote-text">"This is actually insane. It gave me a business idea I never would have thought of and told me exactly what to do first. I started the same day."</div><div class="quote-author">— Teen, 16 years old</div></div>
+      <div class="quote-card reveal"><div class="quote-stars">★★★★★</div><div class="quote-text">"I've always wanted to start something but never knew where to begin. The roadmap made it so simple — I knew exactly what to do each week."</div><div class="quote-author">— Teen, 15 years old</div></div>
+      <div class="quote-card reveal"><div class="quote-stars">★★★★★</div><div class="quote-text">"The AI mentor actually talks like a real person. It doesn't give boring corporate advice — it talks to you like a friend who already figured it out."</div><div class="quote-author">— Teen, 17 years old</div></div>
+    </div>
+  </div>
+</section>
+<div class="glow-divider"></div>
+<section class="section" id="plans">
+  <div class="section-inner">
+    <div class="section-tag reveal" style="justify-content:center">Pricing</div>
+    <h2 class="section-title reveal" style="text-align:center">Start free.<br><span>Upgrade when you're ready.</span></h2>
     <div class="plans-grid">
-      <div class="plan-card">
+      <div class="plan-card reveal">
         <div class="plan-name">Free</div>
-        <div class="plan-price">$0 <span>forever</span></div>
-        <div class="plan-desc">Perfect to get started.</div>
+        <div class="plan-price"><sup>$</sup>0</div>
+        <div class="plan-desc">Everything you need to find your idea and get started today.</div>
         <ul class="plan-features">
-          <li><i class="ti ti-check"></i> AI business idea generator</li>
-          <li><i class="ti ti-check"></i> AI tool recommendations</li>
-          <li><i class="ti ti-check"></i> Limited chatbot (10 msg/day)</li>
-          <li><i class="ti ti-check"></i> First 4 steps to start</li>
-          <li class="muted"><i class="ti ti-x"></i> Unlimited AI mentor</li>
-          <li class="muted"><i class="ti ti-x"></i> 8-week roadmap</li>
-          <li class="muted"><i class="ti ti-x"></i> Progress tracker</li>
+          <li><span class="check">✓</span> AI business idea generator</li>
+          <li><span class="check">✓</span> AI tool recommendations</li>
+          <li><span class="check">✓</span> First 4 action steps</li>
+          <li><span class="check">✓</span> Limited chatbot (10 msg/day)</li>
+          <li class="dim"><span class="check">✗</span> Unlimited AI mentor</li>
+          <li class="dim"><span class="check">✗</span> 8-week roadmap</li>
+          <li class="dim"><span class="check">✗</span> Progress tracker</li>
         </ul>
-        <button class="btn" style="width:100%" onclick="showPage('generator')">Start free</button>
+        <a href="https://startify-beckend.vercel.app" class="plan-btn plan-btn-ghost">Start for free →</a>
       </div>
-      <div class="plan-card featured">
-        <div class="plan-name">Premium ✦</div>
-        <div class="plan-price">$10 <span>/month</span></div>
-        <div class="plan-desc">For teens serious about building.</div>
+      <div class="plan-card featured reveal">
+        <div class="plan-name">Premium</div>
+        <div class="plan-price"><sup>$</sup>10<sub>/mo</sub></div>
+        <div class="plan-desc">For teens who are serious about building something real.</div>
         <ul class="plan-features">
-          <li><i class="ti ti-check"></i> Everything in free</li>
-          <li><i class="ti ti-check"></i> Unlimited AI mentor chatbot</li>
-          <li><i class="ti ti-check"></i> 8-week business roadmap</li>
-          <li><i class="ti ti-check"></i> Progress tracker & milestones</li>
-          <li><i class="ti ti-check"></i> Unstuck button</li>
-          <li><i class="ti ti-check"></i> Unlimited conversations</li>
+          <li><span class="check">✓</span> Everything in free</li>
+          <li><span class="check">✓</span> Unlimited AI mentor chatbot</li>
+          <li><span class="check">✓</span> 8-week business roadmap</li>
+          <li><span class="check">✓</span> Progress tracker & milestones</li>
+          <li><span class="check">✓</span> Unstuck button</li>
+          <li><span class="check">✓</span> Unlimited conversations</li>
         </ul>
-        <button class="btn btn-primary" style="width:100%" onclick="showPage('premium')">Try premium</button>
+        <a href="https://startify-beckend.vercel.app" class="plan-btn plan-btn-solid">Get premium →</a>
       </div>
     </div>
   </div>
-</div>
-
-<!-- GENERATOR PAGE -->
-<div class="page" id="page-generator">
-  <div class="app-wrap">
-    <div class="app-card">
-      <div class="app-header">
-        <div>
-          <div class="app-header-title">Business idea generator</div>
-          <div class="app-header-sub">Free — answer 4 questions</div>
-        </div>
-        <div class="step-indicator" id="gen-dots"></div>
-      </div>
-      <div class="app-body" id="gen-body"></div>
-    </div>
+</section>
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title reveal">Your business starts <span>today.</span></h2>
+    <p class="cta-sub reveal">Thousands of teens have ideas. Only a few actually do something about it. Which one are you?</p>
+    <a href="https://startify-beckend.vercel.app" class="btn-big btn-solid reveal">Get my free business idea →</a>
+    <p class="cta-note reveal">Free forever. No credit card needed. Takes 2 minutes.</p>
   </div>
-  <div class="free-chat-wrap" id="free-chat-section" style="display:none">
-    <div class="free-chat-card">
-      <div class="free-chat-header">
-        <div class="free-chat-title">💬 Ask the AI about your idea</div>
-        <div class="msg-counter" id="msg-counter">10 messages left today</div>
-      </div>
-      <div class="free-messages" id="free-messages"></div>
-      <div id="limit-area"></div>
-      <div class="free-input-row">
-        <textarea id="free-input" placeholder="Ask anything about your business idea..." rows="1" onkeydown="handleFreeKey(event)"></textarea>
-        <button class="send-btn" onclick="sendFreeChat()" id="free-send-btn"><i class="ti ti-send"></i></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PREMIUM PAGE -->
-<div class="page" id="page-premium">
-  <div class="premium-wrap">
-    <div class="premium-shell">
-      <div class="sidebar">
-        <div class="sb-top">
-          <div class="sb-logo">Start<span>ify</span></div>
-          <div class="sb-badge">Premium</div>
-        </div>
-        <div class="sb-section">Menu</div>
-        <div class="sb-nav active" id="sb-chat" onclick="switchPanel('chat')"><i class="ti ti-message-circle"></i><span>AI mentor</span></div>
-        <div class="sb-nav" id="sb-roadmap" onclick="switchPanel('roadmap')"><i class="ti ti-map-2"></i><span>My roadmap</span></div>
-        <div class="sb-nav" id="sb-tracker" onclick="switchPanel('tracker')"><i class="ti ti-chart-bar"></i><span>Progress</span></div>
-        <div class="sb-nav" onclick="unstuck()"><i class="ti ti-bolt"></i><span>Unstuck</span></div>
-        <div class="sb-bottom">
-          <div class="sb-user">
-            <div class="sb-avatar">YO</div>
-            <div><div class="sb-uname">You</div><div class="sb-uplan">$10/mo</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="chat-main" id="chat-main">
-        <div class="chat-header">
-          <div class="chat-avatar"><i class="ti ti-robot"></i></div>
-          <div class="chat-info"><div class="ci-title">Startify mentor</div><div class="ci-sub">Unlimited — Premium</div></div>
-          <div class="online"></div>
-        </div>
-        <div class="messages" id="messages"></div>
-        <div class="chips">
-          <div class="chip" onclick="chipSend('I got 0 sales, what do I do?')">Got 0 sales</div>
-          <div class="chip" onclick="chipSend('How do I price my product?')">Pricing help</div>
-          <div class="chip" onclick="chipSend('I feel like giving up')">Feeling stuck</div>
-          <div class="chip" onclick="chipSend('How do I get my first customer?')">First customer</div>
-        </div>
-        <div class="input-row">
-          <textarea id="chat-input" placeholder="Ask your mentor anything..." rows="1" onkeydown="handleKey(event)"></textarea>
-          <button class="send-btn" onclick="sendChat()"><i class="ti ti-send"></i></button>
-        </div>
-      </div>
-      <div class="panel" id="panel-roadmap">
-        <div class="panel-title">Your 8-week roadmap</div>
-        <div class="wk"><div class="wk-label">Week 1</div><div class="wk-title">Validate your idea</div><ul class="wk-tasks"><li class="done"><i class="ti ti-circle-check"></i>Write your idea in 1 sentence</li><li class="done"><i class="ti ti-circle-check"></i>Find 3 people who might pay</li><li><i class="ti ti-circle"></i>Ask them if they'd actually buy</li></ul></div>
-        <div class="wk"><div class="wk-label">Week 2</div><div class="wk-title">Build your first version</div><ul class="wk-tasks"><li><i class="ti ti-circle"></i>Create an Instagram or TikTok page</li><li><i class="ti ti-circle"></i>Make your first post</li><li><i class="ti ti-circle"></i>Set up Gumroad to take payment</li></ul></div>
-        <div class="wk"><div class="wk-label">Week 3–4</div><div class="wk-title">Get your first customer</div><ul class="wk-tasks"><li><i class="ti ti-circle"></i>DM 10 people who might be interested</li><li><i class="ti ti-circle"></i>Offer a discount for first 3 buyers</li><li><i class="ti ti-circle"></i>Deliver and ask for a review</li></ul></div>
-        <div class="wk"><div class="wk-label">Week 5–8</div><div class="wk-title">Grow and repeat</div><ul class="wk-tasks"><li><i class="ti ti-circle"></i>Post 3x per week consistently</li><li><i class="ti ti-circle"></i>Ask happy customers to refer friends</li><li><i class="ti ti-circle"></i>Hit your first $100 in revenue</li></ul></div>
-      </div>
-      <div class="panel" id="panel-tracker">
-        <div class="panel-title">Your progress</div>
-        <div class="stat-grid">
-          <div class="stat-c"><div class="stat-l">Days active</div><div class="stat-v">1</div></div>
-          <div class="stat-c"><div class="stat-l">Tasks done</div><div class="stat-v">2</div></div>
-          <div class="stat-c"><div class="stat-l">Revenue</div><div class="stat-v">$0</div></div>
-        </div>
-        <div class="panel-title" style="margin-top:8px">Milestones</div>
-        <div class="milestone done"><i class="ti ti-circle-check" style="color:var(--green)"></i><div><div class="m-text">Generated first business idea</div><div class="m-sub">Day 1</div></div></div>
-        <div class="milestone done"><i class="ti ti-circle-check" style="color:var(--green)"></i><div><div class="m-text">Upgraded to premium</div><div class="m-sub">Day 1</div></div></div>
-        <div class="milestone"><i class="ti ti-lock" style="color:var(--text3)"></i><div><div class="m-text">Talk to first potential customer</div><div class="m-sub">Not done yet</div></div></div>
-        <div class="milestone"><i class="ti ti-lock" style="color:var(--text3)"></i><div><div class="m-text">Make your first post</div><div class="m-sub">Not done yet</div></div></div>
-        <div class="milestone"><i class="ti ti-lock" style="color:var(--text3)"></i><div><div class="m-text">Get your first sale</div><div class="m-sub">Not done yet</div></div></div>
-        <div class="milestone"><i class="ti ti-lock" style="color:var(--text3)"></i><div><div class="m-text">Hit $100 in revenue</div><div class="m-sub">Not done yet</div></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
+</section>
+<footer>
+  <div class="footer-logo">Start<span>ify</span></div>
+  <div class="footer-text">Built by a teen, for teens. © 2026 Startify</div>
+</footer>
 <script>
-const BACKEND = 'https://startify-beckend.vercel.app/api/chat';
-const FREE_LIMIT = 10;
-
-// ── PAGE ROUTING ──
-function showPage(p) {
-  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-  document.getElementById('page-' + p).classList.add('active');
-  window.scrollTo(0,0);
-  if (p === 'generator') initGenerator();
-  if (p === 'premium' && !chatReady) initChat();
-}
-
-// ── FREE MESSAGE LIMIT ──
-function getTodayKey() {
-  return 'startify_msgs_' + new Date().toDateString();
-}
-function getMsgsUsed() {
-  return parseInt(localStorage.getItem(getTodayKey()) || '0');
-}
-function addMsgUsed() {
-  localStorage.setItem(getTodayKey(), getMsgsUsed() + 1);
-}
-function getMsgsLeft() {
-  return Math.max(0, FREE_LIMIT - getMsgsUsed());
-}
-function getTimeUntilMidnight() {
-  const now = new Date();
-  const midnight = new Date();
-  midnight.setHours(24, 0, 0, 0);
-  const diff = midnight - now;
-  const h = Math.floor(diff / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  return `${h}h ${m}m`;
-}
-function updateCounter() {
-  const left = getMsgsLeft();
-  const counter = document.getElementById('msg-counter');
-  if (!counter) return;
-  counter.textContent = left + ' messages left today';
-  counter.className = 'msg-counter' + (left <= 3 ? ' low' : '');
-}
-function checkLimit() {
-  const left = getMsgsLeft();
-  const limitArea = document.getElementById('limit-area');
-  const freeInput = document.getElementById('free-input');
-  const sendBtn = document.getElementById('free-send-btn');
-  if (!limitArea) return;
-  if (left === 0) {
-    limitArea.innerHTML = `
-      <div class="limit-banner">
-        <div class="limit-banner-title">🔒 Daily limit reached</div>
-        <div class="limit-banner-desc">You've used all 10 free messages for today.</div>
-        <div class="limit-timer">⏰ Resets in ${getTimeUntilMidnight()}</div>
-        <div style="margin-top:10px;display:flex;gap:8px;">
-          <button class="btn btn-primary" style="flex:1;font-size:12px" onclick="showPage('premium')">Upgrade for unlimited ✦</button>
-        </div>
-      </div>`;
-    if (freeInput) freeInput.disabled = true;
-    if (sendBtn) sendBtn.disabled = true;
-  } else {
-    limitArea.innerHTML = '';
-    if (freeInput) freeInput.disabled = false;
-    if (sendBtn) sendBtn.disabled = false;
-  }
-}
-
-// ── GENERATOR ──
-const questions = [
-  { label:'Step 1 of 4', q:'What are you most into?', opts:[
-    {icon:'🎮', label:'Tech & gaming', desc:'Apps, content, coding'},
-    {icon:'👗', label:'Fashion & beauty', desc:'Style, makeup, trends'},
-    {icon:'🎨', label:'Art & design', desc:'Drawing, branding, media'},
-    {icon:'⚽', label:'Sports & fitness', desc:'Training, coaching, gear'},
-    {icon:'🍕', label:'Food & cooking', desc:'Baking, meal prep, recipes'},
-    {icon:'🎵', label:'Music & content', desc:'Producing, streaming, videos'}
-  ]},
-  { label:'Step 2 of 4', q:'How much time can you dedicate per week?', opts:[
-    {icon:'⏰', label:'1–3 hours', desc:'Very busy with school'},
-    {icon:'🕓', label:'4–8 hours', desc:'A few hours on weekends'},
-    {icon:'🕗', label:'8–15 hours', desc:'Pretty committed'},
-    {icon:'🔥', label:'15+ hours', desc:'Full hustle mode'}
-  ]},
-  { label:'Step 3 of 4', q:"What's your starting budget?", opts:[
-    {icon:'🪙', label:'Zero budget', desc:'Start completely free'},
-    {icon:'💵', label:'Under $50', desc:'A little to invest'},
-    {icon:'💰', label:'$50–$200', desc:'Some savings available'},
-    {icon:'💳', label:'$200+', desc:'Ready to invest more'}
-  ]},
-  { label:'Step 4 of 4', q:"What's your biggest fear?", opts:[
-    {icon:'👀', label:'Failing or being judged', desc:'What will people think?'},
-    {icon:'🗺️', label:'Not knowing where to start', desc:'Too overwhelming'},
-    {icon:'👨‍👩‍👧', label:'No support from family', desc:"Parents don't get it"},
-    {icon:'🔋', label:'Running out of motivation', desc:'Hard to stay consistent'}
-  ]}
-];
-let genStep = 0, genAnswers = {};
-
-function initGenerator() { genStep = 0; genAnswers = {}; renderGenStep(); document.getElementById('free-chat-section').style.display = 'none'; }
-
-function buildDots(current) {
-  const c = document.getElementById('gen-dots');
-  if (!c) return;
-  c.innerHTML = '';
-  for (let i = 0; i < 4; i++) {
-    const d = document.createElement('div');
-    d.className = 'step-dot' + (i < current ? ' done' : i === current ? ' active' : '');
-    c.appendChild(d);
-  }
-}
-
-function renderGenStep() {
-  buildDots(genStep);
-  if (genStep >= 4) { generateIdea(); return; }
-  const q = questions[genStep];
-  document.getElementById('gen-body').innerHTML = `
-    <div class="q-label">${q.label}</div>
-    <div class="q-text">${q.q}</div>
-    <div class="opts">${q.opts.map((o,i) => `
-      <button class="opt" onclick="selectOpt(${i},'${o.label}')" id="opt-${i}">
-        <span class="opt-icon">${o.icon}</span>
-        <span class="opt-label">${o.label}</span>
-        <span class="opt-desc">${o.desc}</span>
-      </button>`).join('')}
-    </div>
-    <button class="next-btn" id="gen-next" onclick="nextGenStep()" disabled>Continue →</button>`;
-}
-
-function selectOpt(i, val) {
-  document.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
-  document.getElementById('opt-' + i).classList.add('sel');
-  genAnswers[genStep] = val;
-  document.getElementById('gen-next').disabled = false;
-}
-
-function nextGenStep() { genStep++; renderGenStep(); }
-
-async function generateIdea() {
-  buildDots(4);
-  document.getElementById('gen-body').innerHTML = `<div class="loading"><div class="spinner"></div><p>Building your personalized idea...</p></div>`;
-  try {
-    const r = await fetch(BACKEND, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messages: [{ role: 'user', content: `You are a business advisor for teenagers. A teen answered:
-- Interests: ${genAnswers[0]}
-- Time per week: ${genAnswers[1]}
-- Budget: ${genAnswers[2]}
-- Biggest fear: ${genAnswers[3]}
-Give ONE specific realistic business idea AND recommend 4 real AI tools that would help with this business. Respond ONLY with a valid JSON object, no markdown, no explanation:
-{"idea_name":"name","idea_summary":"2 sentences","why_it_fits":"1 sentence","first_steps":["step1","step2","step3","step4"],"encouragement":"1 sentence","ai_tools":[{"name":"tool name","url":"https://...","desc":"one sentence what it does and why it helps this business"},{"name":"tool name","url":"https://...","desc":"one sentence"},{"name":"tool name","url":"https://...","desc":"one sentence"},{"name":"tool name","url":"https://...","desc":"one sentence"}]}` }]
-      })
-    });
-    const raw = await r.json();
-    let text = '';
-    if (raw.content && Array.isArray(raw.content)) {
-      text = raw.content.map(i => i.text || '').join('');
-    } else if (typeof raw.content === 'string') {
-      text = raw.content;
-    } else {
-      throw new Error(JSON.stringify(raw));
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
     }
-    text = text.replace(/```json/g,'').replace(/```/g,'').trim();
-    const res = JSON.parse(text);
-
-    document.getElementById('gen-body').innerHTML = `
-      <div class="result-section">
-        <span class="result-badge">Your idea</span>
-        <div class="result-title">${res.idea_name}</div>
-        <div class="result-desc">${res.idea_summary}</div>
-        <div class="result-desc" style="margin-top:8px;font-style:italic">${res.why_it_fits}</div>
-      </div>
-      <div class="result-section">
-        <div class="result-title">Your first 4 steps</div>
-        <ul class="steps-list">${res.first_steps.map(s=>`<li>${s}</li>`).join('')}</ul>
-      </div>
-      <div class="tools-section">
-        <div class="tools-title"><i class="ti ti-sparkles"></i> AI tools to help you start</div>
-        <div class="tools-grid">${res.ai_tools.map(t=>`
-          <div class="tool-card">
-            <div class="tool-name">${t.name}</div>
-            <div class="tool-desc">${t.desc}</div>
-            <a href="${t.url}" target="_blank" class="tool-badge">Visit →</a>
-          </div>`).join('')}
-        </div>
-      </div>
-      <div class="encourage">💬 ${res.encouragement}</div>
-      <div class="upgrade-banner">
-        <div class="ub-text">
-          <div class="ub-title">Want a full roadmap + unlimited AI mentor?</div>
-          <div class="ub-desc">Unlock week-by-week plan, unlimited chat & more.</div>
-        </div>
-        <button class="btn btn-primary" onclick="showPage('premium')">Upgrade ✦</button>
-      </div>
-      <button class="restart-btn" onclick="initGenerator()">↺ Start over</button>`;
-
-    // Show free chat below
-    document.getElementById('free-chat-section').style.display = 'block';
-    initFreeChat(res.idea_name);
-    updateCounter();
-    checkLimit();
-  } catch(e) {
-    document.getElementById('gen-body').innerHTML = `<div class="result-section"><div class="result-desc">Error: ${e.message}</div></div><button class="restart-btn" onclick="initGenerator()">↺ Try again</button>`;
-  }
-}
-
-// ── FREE CHAT ──
-const freeChatHistory = [];
-let freeChatReady = false;
-
-function initFreeChat(ideaName) {
-  freeChatReady = true;
-  freeChatHistory.length = 0;
-  addFreeMsg('ai', `Nice idea! I'm here to help you think through "${ideaName}". What do you want to know? You have ${getMsgsLeft()} free messages today.`);
-}
-
-function addFreeMsg(role, text) {
-  const isUser = role === 'user';
-  const msgs = document.getElementById('free-messages');
-  if (!msgs) return;
-  const d = document.createElement('div');
-  d.className = 'msg ' + (isUser ? 'user' : 'ai');
-  d.innerHTML = `<div class="msg-av ${isUser?'me':'ai'}">${isUser?'YO':'<i class="ti ti-robot"></i>'}</div><div><div class="msg-bubble">${text}</div></div>`;
-  msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function addFreeTyping() {
-  const msgs = document.getElementById('free-messages');
-  const d = document.createElement('div');
-  d.className = 'msg ai'; d.id = 'free-typing';
-  d.innerHTML = `<div class="msg-av ai"><i class="ti ti-robot"></i></div><div class="typing-ind"><span></span><span></span><span></span></div>`;
-  msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-function removeFreeTyping() { const t = document.getElementById('free-typing'); if(t) t.remove(); }
-
-async function sendFreeChat() {
-  if (getMsgsLeft() <= 0) { checkLimit(); return; }
-  const inp = document.getElementById('free-input');
-  const text = inp.value.trim();
-  if (!text) return;
-  inp.value = '';
-  addFreeMsg('user', text);
-  freeChatHistory.push({role:'user', content:text});
-  addMsgUsed();
-  updateCounter();
-  addFreeTyping();
-  try {
-    const r = await fetch(BACKEND, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system: "You are Startify, a friendly AI business coach for teenagers. Be casual, encouraging, and specific. Keep responses to 2-3 sentences max. No bullet points.",
-        messages: freeChatHistory
-      })
-    });
-    const raw = await r.json();
-    let reply = '';
-    if (raw.content && Array.isArray(raw.content)) {
-      reply = raw.content.map(i => i.text || '').join('');
-    } else if (typeof raw.content === 'string') {
-      reply = raw.content;
-    } else { reply = 'Something went wrong — try again!'; }
-    removeFreeTyping();
-    addFreeMsg('ai', reply);
-    freeChatHistory.push({role:'assistant', content:reply});
-  } catch(e) {
-    removeFreeTyping();
-    addFreeMsg('ai', 'Something went wrong — try again!');
-  }
-  checkLimit();
-}
-
-function handleFreeKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendFreeChat();} }
-
-// ── PREMIUM CHAT ──
-const chatHistory = [];
-let chatReady = false;
-
-function initChat() {
-  chatReady = true;
-  addMsg('ai', "Hey! I'm your Startify mentor. I know you're building your business — I'm here every step of the way. What's on your mind today?");
-}
-
-function now() { return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}); }
-
-function addMsg(role, text) {
-  const isUser = role === 'user';
-  const msgs = document.getElementById('messages');
-  const d = document.createElement('div');
-  d.className = 'msg ' + (isUser ? 'user' : 'ai');
-  d.innerHTML = `<div class="msg-av ${isUser?'me':'ai'}">${isUser?'YO':'<i class="ti ti-robot"></i>'}</div><div><div class="msg-bubble">${text}</div><div class="msg-time">${now()}</div></div>`;
-  msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function addTyping() {
-  const msgs = document.getElementById('messages');
-  const d = document.createElement('div');
-  d.className = 'msg ai'; d.id = 'typing';
-  d.innerHTML = `<div class="msg-av ai"><i class="ti ti-robot"></i></div><div class="typing-ind"><span></span><span></span><span></span></div>`;
-  msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-function removeTyping() { const t = document.getElementById('typing'); if(t) t.remove(); }
-
-async function sendChat() {
-  const inp = document.getElementById('chat-input');
-  const text = inp.value.trim();
-  if (!text) return;
-  inp.value = '';
-  addMsg('user', text);
-  chatHistory.push({role:'user', content:text});
-  addTyping();
-  try {
-    const r = await fetch(BACKEND, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system: "You are Startify Mentor, a friendly AI business coach for teenagers. Speak casually like a slightly older teen who already started a business. Be encouraging but honest. Keep responses short (2-4 sentences max). No bullet points — just talk naturally.",
-        messages: chatHistory
-      })
-    });
-    const raw = await r.json();
-    let reply = '';
-    if (raw.content && Array.isArray(raw.content)) {
-      reply = raw.content.map(i => i.text || '').join('');
-    } else if (typeof raw.content === 'string') {
-      reply = raw.content;
-    } else { reply = 'Something went wrong — try again!'; }
-    removeTyping();
-    addMsg('ai', reply);
-    chatHistory.push({role:'assistant', content:reply});
-  } catch(e) {
-    removeTyping();
-    addMsg('ai', 'Something went wrong — try again!');
-  }
-}
-
-function chipSend(t) { document.getElementById('chat-input').value = t; sendChat(); }
-function handleKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();} }
-function unstuck() {
-  switchPanel('chat');
-  chipSend("I feel completely stuck. Give me one tiny thing I can do right now.");
-}
-function switchPanel(p) {
-  document.getElementById('chat-main').style.display = p==='chat'?'flex':'none';
-  document.getElementById('panel-roadmap').className = 'panel'+(p==='roadmap'?' open':'');
-  document.getElementById('panel-tracker').className = 'panel'+(p==='tracker'?' open':'');
-  ['chat','roadmap','tracker'].forEach(x => {
-    document.getElementById('sb-'+x).className = 'sb-nav'+(x===p?' active':'');
   });
-}
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
