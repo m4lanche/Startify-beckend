@@ -10,38 +10,45 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0A0E14;
-      --bg2: #0F1520;
-      --bg3: #141C28;
-      --card: #111825;
-      --card2: #161F2E;
-      --text: #EDF2F8;
-      --text2: #8A9BB5;
-      --text3: #4A5B72;
-      --border: rgba(100,150,220,0.1);
-      --border2: rgba(100,150,220,0.2);
-      --cyan: #00C8E0;
-      --cyan2: #00A8C0;
-      --cyan-dim: rgba(0,200,224,0.08);
-      --blue: #2D7DD2;
-      --orange: #F59E0B;
-      --orange-bg: rgba(245,158,11,0.1);
-      --radius: 12px;
-      --radius-lg: 18px;
-      --radius-xl: 28px;
+      --bg: #0A0E14; --bg2: #0F1520; --bg3: #141C28;
+      --card: #111825; --card2: #161F2E;
+      --text: #EDF2F8; --text2: #8A9BB5; --text3: #4A5B72;
+      --border: rgba(100,150,220,0.1); --border2: rgba(100,150,220,0.2);
+      --cyan: #00C8E0; --cyan2: #00A8C0; --cyan-dim: rgba(0,200,224,0.08);
+      --blue: #2D7DD2; --orange: #F59E0B; --orange-bg: rgba(245,158,11,0.1);
+      --radius: 12px; --radius-lg: 18px; --radius-xl: 28px;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
     nav { background: rgba(10,14,20,0.9); backdrop-filter: blur(16px); border-bottom: 0.5px solid var(--border); padding: 0 1.5rem; height: 54px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-    .nav-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; text-decoration: none; }
     .nav-logo span { color: var(--cyan); }
     .nav-right { display: flex; align-items: center; gap: 10px; }
     .btn { padding: 7px 16px; border-radius: 99px; border: 0.5px solid var(--border2); background: transparent; font-size: 13px; font-weight: 500; color: var(--text2); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
     .btn:hover { color: var(--text); border-color: rgba(0,200,224,0.3); }
     .btn-primary { background: var(--cyan); color: var(--bg); border-color: var(--cyan); font-weight: 600; box-shadow: 0 0 20px rgba(0,200,224,0.2); }
     .btn-primary:hover { opacity: 0.88; color: var(--bg); }
+    .btn-danger { background: rgba(239,68,68,0.1); color: #EF4444; border-color: rgba(239,68,68,0.2); }
+    .btn-danger:hover { background: rgba(239,68,68,0.2); }
     .page { display: none; }
     .page.active { display: block; }
+
+    /* WELCOME BACK */
+    .welcome-wrap { max-width: 600px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .welcome-card { background: var(--card); border: 1px solid rgba(0,200,224,0.3); border-radius: var(--radius-lg); padding: 2rem; text-align: center; box-shadow: 0 0 40px rgba(0,200,224,0.06); }
+    .welcome-icon { font-size: 40px; margin-bottom: 1rem; }
+    .welcome-title { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.5rem; }
+    .welcome-title span { background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .welcome-sub { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; line-height: 1.6; }
+    .welcome-idea { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.5rem; text-align: left; }
+    .welcome-idea-label { font-size: 11px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 4px; }
+    .welcome-idea-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+    .welcome-idea-desc { font-size: 13px; color: var(--text2); margin-top: 4px; line-height: 1.5; }
+    .welcome-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .welcome-btns .btn { font-size: 14px; padding: 10px 20px; }
+    .days-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--cyan-dim); border: 0.5px solid rgba(0,200,224,0.25); border-radius: 99px; padding: 5px 14px; font-size: 12px; color: var(--cyan); font-weight: 600; margin-bottom: 1.25rem; }
+
+    /* HOME */
     .home-hero { max-width: 620px; margin: 0 auto; padding: 5rem 1.5rem 3rem; text-align: center; }
     .home-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--cyan-dim); border: 0.5px solid rgba(0,200,224,0.25); border-radius: 99px; padding: 6px 16px; font-size: 12px; font-weight: 500; color: var(--cyan); margin-bottom: 1.5rem; }
     .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
@@ -75,6 +82,8 @@
     .plan-btn-ghost:hover { background: var(--card2); color: var(--text); }
     .plan-btn-solid { background: var(--cyan); color: var(--bg); border: none; font-weight: 700; box-shadow: 0 0 20px rgba(0,200,224,0.2); }
     .plan-btn-solid:hover { opacity: 0.88; }
+
+    /* GENERATOR */
     .app-wrap { max-width: 600px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
     .app-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
     .app-header { padding: 1.25rem 1.5rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
@@ -124,6 +133,8 @@
     .tool-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
     .tool-desc { font-size: 11px; color: var(--text2); line-height: 1.4; }
     .tool-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 99px; background: var(--cyan-dim); color: var(--cyan); border: 0.5px solid rgba(0,200,224,0.2); margin-top: 6px; text-decoration: none; }
+
+    /* FREE CHAT */
     .free-chat-wrap { max-width: 600px; margin: 0 auto; padding: 0 1.5rem 4rem; }
     .free-chat-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
     .free-chat-header { padding: 1rem 1.25rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
@@ -139,6 +150,8 @@
     .free-input-row textarea { flex: 1; min-height: 36px; max-height: 80px; resize: none; border-radius: var(--radius); border: 0.5px solid var(--border); padding: 8px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg2); line-height: 1.4; }
     .free-input-row textarea:focus { outline: none; border-color: rgba(0,200,224,0.3); }
     .free-input-row textarea:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* PREMIUM */
     .premium-wrap { max-width: 820px; margin: 0 auto; padding: 1.5rem; }
     .premium-shell { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; display: flex; height: 620px; }
     .sidebar { width: 220px; border-right: 0.5px solid var(--border); display: flex; flex-direction: column; background: var(--bg2); flex-shrink: 0; }
@@ -194,7 +207,7 @@
     .wk-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; font-weight: 600; }
     .wk-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
     .wk-tasks { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-    .wk-tasks li { font-size: 12px; color: var(--text2); display: flex; gap: 6px; align-items: flex-start; line-height: 1.5; }
+    .wk-tasks li { font-size: 12px; color: var(--text2); display: flex; gap: 6px; align-items: flex-start; line-height: 1.5; cursor: pointer; }
     .wk-tasks li i { font-size: 13px; margin-top: 1px; flex-shrink: 0; color: var(--text3); }
     .wk-tasks li.done { color: var(--text3); text-decoration: line-through; }
     .wk-tasks li.done i { color: var(--cyan); }
@@ -202,7 +215,8 @@
     .stat-c { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 0.875rem; }
     .stat-l { font-size: 10px; color: var(--text3); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
     .stat-v { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .milestone { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 0.5px solid var(--border); border-radius: var(--radius); background: var(--bg2); }
+    .milestone { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 0.5px solid var(--border); border-radius: var(--radius); background: var(--bg2); cursor: pointer; transition: border-color 0.15s; }
+    .milestone:hover { border-color: rgba(0,200,224,0.2); }
     .milestone i { font-size: 16px; }
     .m-text { font-size: 13px; color: var(--text); }
     .m-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
@@ -217,12 +231,14 @@
       .sb-nav.active { border-left: none; background: var(--card); }
       .premium-wrap { padding: 0.75rem; }
       .tools-grid { grid-template-columns: 1fr; }
+      .welcome-btns { flex-direction: column; }
     }
   </style>
 </head>
 <body>
+
 <nav>
-  <a href="/index.html" class="nav-logo" style="text-decoration:none">Start<span>ify</span></a>
+  <a href="/index.html" class="nav-logo">Start<span>ify</span></a>
   <div class="nav-right">
     <button class="btn" onclick="showPage('home')">Home</button>
     <button class="btn" onclick="showPage('generator')">Try free</button>
@@ -230,6 +246,7 @@
   </div>
 </nav>
 
+<!-- HOME -->
 <div class="page active" id="page-home">
   <div class="home-hero">
     <div class="home-badge"><div class="badge-dot"></div> Built by a teen, for teens</div>
@@ -277,6 +294,7 @@
   </div>
 </div>
 
+<!-- GENERATOR -->
 <div class="page" id="page-generator">
   <div class="app-wrap">
     <div class="app-card">
@@ -306,6 +324,7 @@
   </div>
 </div>
 
+<!-- PREMIUM -->
 <div class="page" id="page-premium">
   <div class="premium-wrap">
     <div class="premium-shell">
@@ -346,25 +365,48 @@
       </div>
       <div class="panel" id="panel-roadmap">
         <div class="panel-title">Your 8-week roadmap</div>
-        <div class="wk"><div class="wk-label">Week 1</div><div class="wk-title">Validate your idea</div><ul class="wk-tasks"><li class="done"><i class="ti ti-circle-check"></i>Write your idea in 1 sentence</li><li class="done"><i class="ti ti-circle-check"></i>Find 3 people who might pay</li><li><i class="ti ti-circle"></i>Ask them if they'd actually buy</li></ul></div>
-        <div class="wk"><div class="wk-label">Week 2</div><div class="wk-title">Build your first version</div><ul class="wk-tasks"><li><i class="ti ti-circle"></i>Create an Instagram or TikTok page</li><li><i class="ti ti-circle"></i>Make your first post</li><li><i class="ti ti-circle"></i>Set up Gumroad to take payment</li></ul></div>
-        <div class="wk"><div class="wk-label">Week 3–4</div><div class="wk-title">Get your first customer</div><ul class="wk-tasks"><li><i class="ti ti-circle"></i>DM 10 people who might be interested</li><li><i class="ti ti-circle"></i>Offer a discount for first 3 buyers</li><li><i class="ti ti-circle"></i>Deliver and ask for a review</li></ul></div>
-        <div class="wk"><div class="wk-label">Week 5–8</div><div class="wk-title">Grow and repeat</div><ul class="wk-tasks"><li><i class="ti ti-circle"></i>Post 3x per week consistently</li><li><i class="ti ti-circle"></i>Ask happy customers to refer friends</li><li><i class="ti ti-circle"></i>Hit your first $100 in revenue</li></ul></div>
+        <div class="wk"><div class="wk-label">Week 1</div><div class="wk-title">Validate your idea</div>
+          <ul class="wk-tasks">
+            <li id="task-0" onclick="toggleTask(0)"><i class="ti ti-circle" id="task-icon-0"></i>Write your idea in 1 sentence</li>
+            <li id="task-1" onclick="toggleTask(1)"><i class="ti ti-circle" id="task-icon-1"></i>Find 3 people who might pay</li>
+            <li id="task-2" onclick="toggleTask(2)"><i class="ti ti-circle" id="task-icon-2"></i>Ask them if they'd actually buy</li>
+          </ul>
+        </div>
+        <div class="wk"><div class="wk-label">Week 2</div><div class="wk-title">Build your first version</div>
+          <ul class="wk-tasks">
+            <li id="task-3" onclick="toggleTask(3)"><i class="ti ti-circle" id="task-icon-3"></i>Create an Instagram or TikTok page</li>
+            <li id="task-4" onclick="toggleTask(4)"><i class="ti ti-circle" id="task-icon-4"></i>Make your first post</li>
+            <li id="task-5" onclick="toggleTask(5)"><i class="ti ti-circle" id="task-icon-5"></i>Set up Gumroad to take payment</li>
+          </ul>
+        </div>
+        <div class="wk"><div class="wk-label">Week 3–4</div><div class="wk-title">Get your first customer</div>
+          <ul class="wk-tasks">
+            <li id="task-6" onclick="toggleTask(6)"><i class="ti ti-circle" id="task-icon-6"></i>DM 10 people who might be interested</li>
+            <li id="task-7" onclick="toggleTask(7)"><i class="ti ti-circle" id="task-icon-7"></i>Offer a discount for first 3 buyers</li>
+            <li id="task-8" onclick="toggleTask(8)"><i class="ti ti-circle" id="task-icon-8"></i>Deliver and ask for a review</li>
+          </ul>
+        </div>
+        <div class="wk"><div class="wk-label">Week 5–8</div><div class="wk-title">Grow and repeat</div>
+          <ul class="wk-tasks">
+            <li id="task-9" onclick="toggleTask(9)"><i class="ti ti-circle" id="task-icon-9"></i>Post 3x per week consistently</li>
+            <li id="task-10" onclick="toggleTask(10)"><i class="ti ti-circle" id="task-icon-10"></i>Ask happy customers to refer friends</li>
+            <li id="task-11" onclick="toggleTask(11)"><i class="ti ti-circle" id="task-icon-11"></i>Hit your first $100 in revenue</li>
+          </ul>
+        </div>
       </div>
       <div class="panel" id="panel-tracker">
         <div class="panel-title">Your progress</div>
         <div class="stat-grid">
-          <div class="stat-c"><div class="stat-l">Days active</div><div class="stat-v">1</div></div>
-          <div class="stat-c"><div class="stat-l">Tasks done</div><div class="stat-v">2</div></div>
+          <div class="stat-c"><div class="stat-l">Days active</div><div class="stat-v" id="stat-days">1</div></div>
+          <div class="stat-c"><div class="stat-l">Tasks done</div><div class="stat-v" id="stat-tasks">0</div></div>
           <div class="stat-c"><div class="stat-l">Revenue</div><div class="stat-v">$0</div></div>
         </div>
         <div class="panel-title" style="margin-top:8px">Milestones</div>
-        <div class="milestone done"><i class="ti ti-circle-check" style="color:var(--cyan)"></i><div><div class="m-text">Generated first business idea</div><div class="m-sub">Day 1</div></div></div>
-        <div class="milestone done"><i class="ti ti-circle-check" style="color:var(--cyan)"></i><div><div class="m-text">Upgraded to premium</div><div class="m-sub">Day 1</div></div></div>
-        <div class="milestone"><i class="ti ti-lock" style="color:var(--text3)"></i><div><div class="m-text">Talk to first potential customer</div><div class="m-sub">Not done yet</div></div></div>
-        <div class="milestone"><i class="ti ti-lock" style="color:var(--text3)"></i><div><div class="m-text">Make your first post</div><div class="m-sub">Not done yet</div></div></div>
-        <div class="milestone"><i class="ti ti-lock" style="color:var(--text3)"></i><div><div class="m-text">Get your first sale</div><div class="m-sub">Not done yet</div></div></div>
-        <div class="milestone"><i class="ti ti-lock" style="color:var(--text3)"></i><div><div class="m-text">Hit $100 in revenue</div><div class="m-sub">Not done yet</div></div></div>
+        <div class="milestone done" id="ms-0"><i class="ti ti-circle-check" style="color:var(--cyan)"></i><div><div class="m-text">Generated first business idea</div><div class="m-sub">Day 1</div></div></div>
+        <div class="milestone" id="ms-1" onclick="toggleMilestone(1)"><i class="ti ti-lock" id="ms-icon-1" style="color:var(--text3)"></i><div><div class="m-text">Talk to first potential customer</div><div class="m-sub" id="ms-sub-1">Not done yet</div></div></div>
+        <div class="milestone" id="ms-2" onclick="toggleMilestone(2)"><i class="ti ti-lock" id="ms-icon-2" style="color:var(--text3)"></i><div><div class="m-text">Make your first post</div><div class="m-sub" id="ms-sub-2">Not done yet</div></div></div>
+        <div class="milestone" id="ms-3" onclick="toggleMilestone(3)"><i class="ti ti-lock" id="ms-icon-3" style="color:var(--text3)"></i><div><div class="m-text">Get your first sale</div><div class="m-sub" id="ms-sub-3">Not done yet</div></div></div>
+        <div class="milestone" id="ms-4" onclick="toggleMilestone(4)"><i class="ti ti-lock" id="ms-icon-4" style="color:var(--text3)"></i><div><div class="m-text">Hit $100 in revenue</div><div class="m-sub" id="ms-sub-4">Not done yet</div></div></div>
       </div>
     </div>
   </div>
@@ -373,13 +415,143 @@
 <script>
 const BACKEND = 'https://startify-beckend.vercel.app/api/chat';
 const FREE_LIMIT = 10;
+const STORAGE_KEY = 'startify_data';
+
+// ── STORAGE ──
+function saveData(updates) {
+  const data = loadData();
+  const merged = { ...data, ...updates };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+}
+function loadData() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+}
+function clearData() {
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem('startify_msgs_' + new Date().toDateString());
+}
+
+// ── DAYS ACTIVE ──
+function updateDaysActive() {
+  const data = loadData();
+  const today = new Date().toDateString();
+  const days = data.daysActive || [];
+  if (!days.includes(today)) {
+    days.push(today);
+    saveData({ daysActive: days });
+  }
+  return days.length;
+}
+
+// ── PAGE ROUTING ──
 function showPage(p) {
   document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
   document.getElementById('page-' + p).classList.add('active');
   window.scrollTo(0,0);
   if (p === 'generator') initGenerator();
   if (p === 'premium' && !chatReady) initChat();
+  if (p === 'premium') loadTrackerData();
 }
+
+// ── SMART START: check if user has saved data ──
+function smartStart() {
+  const data = loadData();
+  if (data.idea) {
+    showWelcomeBack(data);
+  } else {
+    showPage('generator');
+  }
+}
+
+function showWelcomeBack(data) {
+  const days = updateDaysActive();
+  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+  document.getElementById('page-generator').classList.add('active');
+  document.getElementById('free-chat-section').style.display = 'none';
+
+  document.getElementById('gen-body').innerHTML = `
+    <div style="display:none" id="gen-dots-hidden"></div>
+  `;
+
+  const wrap = document.querySelector('.app-wrap');
+  wrap.innerHTML = `
+    <div class="welcome-card">
+      <div class="welcome-icon">👋</div>
+      <div class="days-badge">🔥 Day ${days} — keep going!</div>
+      <div class="welcome-title">Welcome back to <span>Startify</span></div>
+      <div class="welcome-sub">Your business idea is saved and ready. Pick up right where you left off.</div>
+      <div class="welcome-idea">
+        <div class="welcome-idea-label">Your business idea</div>
+        <div class="welcome-idea-name">${data.idea.idea_name}</div>
+        <div class="welcome-idea-desc">${data.idea.idea_summary}</div>
+      </div>
+      <div class="welcome-btns">
+        <button class="btn btn-primary" onclick="resumeIdea()">Continue my journey →</button>
+        <button class="btn" onclick="showPage('premium')">Open AI mentor ✦</button>
+        <button class="btn btn-danger" onclick="confirmReset()">Start over</button>
+      </div>
+    </div>
+  `;
+}
+
+function resumeIdea() {
+  const data = loadData();
+  if (!data.idea) { initGenerator(); return; }
+
+  const wrap = document.querySelector('.app-wrap');
+  wrap.innerHTML = `
+    <div class="app-card">
+      <div class="app-header">
+        <div>
+          <div class="app-header-title">Business idea generator</div>
+          <div class="app-header-sub">Your saved idea</div>
+        </div>
+        <div class="step-indicator" id="gen-dots"></div>
+      </div>
+      <div class="app-body" id="gen-body"></div>
+    </div>
+  `;
+
+  showSavedResult(data.idea);
+  document.getElementById('free-chat-section').style.display = 'block';
+  restoreFreeChatHistory(data);
+  updateCounter();
+  checkLimit();
+}
+
+function showSavedResult(res) {
+  document.getElementById('gen-dots').innerHTML = Array(4).fill('<div class="step-dot done"></div>').join('');
+  document.getElementById('gen-body').innerHTML = `
+    <div class="result-section">
+      <span class="result-badge">✦ Your idea</span>
+      <div class="result-title">${res.idea_name}</div>
+      <div class="result-desc">${res.idea_summary}</div>
+      <div class="result-desc" style="margin-top:8px;font-style:italic;opacity:0.7">${res.why_it_fits}</div>
+    </div>
+    <div class="result-section">
+      <div class="result-title">Your first 4 steps</div>
+      <ul class="steps-list">${res.first_steps.map(s=>`<li>${s}</li>`).join('')}</ul>
+    </div>
+    <div class="tools-section">
+      <div class="tools-title"><i class="ti ti-sparkles"></i> AI tools to help you start</div>
+      <div class="tools-grid">${res.ai_tools.map(t=>`<div class="tool-card"><div class="tool-name">${t.name}</div><div class="tool-desc">${t.desc}</div><a href="${t.url}" target="_blank" class="tool-badge">Visit →</a></div>`).join('')}</div>
+    </div>
+    <div class="encourage">💬 ${res.encouragement}</div>
+    <div class="upgrade-banner">
+      <div class="ub-text"><div class="ub-title">Want unlimited AI mentor + full roadmap?</div><div class="ub-desc">Unlock week-by-week plan, unlimited chat & more.</div></div>
+      <button class="btn btn-primary" onclick="showPage('premium')">Upgrade ✦</button>
+    </div>
+    <button class="restart-btn" onclick="confirmReset()">↺ Start over with a new idea</button>`;
+}
+
+function confirmReset() {
+  if (confirm('Are you sure you want to start over? Your saved idea and chat history will be deleted.')) {
+    clearData();
+    location.reload();
+  }
+}
+
+// ── FREE MSG LIMIT ──
 function getTodayKey() { return 'startify_msgs_' + new Date().toDateString(); }
 function getMsgsUsed() { return parseInt(localStorage.getItem(getTodayKey()) || '0'); }
 function addMsgUsed() { localStorage.setItem(getTodayKey(), getMsgsUsed() + 1); }
@@ -404,7 +576,7 @@ function checkLimit() {
   const sb = document.getElementById('free-send-btn');
   if (!la) return;
   if (left === 0) {
-    la.innerHTML = `<div class="limit-banner"><div class="limit-banner-title">🔒 Daily limit reached</div><div class="limit-banner-desc">You've used all 10 free messages for today.</div><div class="limit-timer">⏰ Resets in ${getTimeUntilMidnight()}</div><div style="margin-top:10px"><button class="plan-btn plan-btn-solid" style="width:100%;font-size:12px" onclick="showPage('premium')">Upgrade for unlimited ✦</button></div></div>`;
+    la.innerHTML = `<div class="limit-banner"><div class="limit-banner-title">🔒 Daily limit reached</div><div class="limit-banner-desc">You've used all 10 free messages for today.</div><div class="limit-timer">⏰ Resets in ${getTimeUntilMidnight()}</div><div style="margin-top:10px"><button class="plan-btn plan-btn-solid" style="width:100%;font-size:12px;padding:10px;border-radius:99px;background:var(--cyan);color:var(--bg);border:none;cursor:pointer;font-weight:700" onclick="showPage('premium')">Upgrade for unlimited ✦</button></div></div>`;
     if (fi) fi.disabled = true;
     if (sb) sb.disabled = true;
   } else {
@@ -413,6 +585,8 @@ function checkLimit() {
     if (sb) sb.disabled = false;
   }
 }
+
+// ── GENERATOR ──
 const questions = [
   { label:'Step 1 of 4', q:'What are you most into?', opts:[
     {icon:'🎮',label:'Tech & gaming',desc:'Apps, content, coding'},
@@ -442,11 +616,31 @@ const questions = [
   ]}
 ];
 let genStep = 0, genAnswers = {};
-function initGenerator() { genStep = 0; genAnswers = {}; renderGenStep(); document.getElementById('free-chat-section').style.display = 'none'; }
+
+function initGenerator() {
+  genStep = 0; genAnswers = {};
+  const wrap = document.querySelector('.app-wrap');
+  if (!wrap) return;
+  wrap.innerHTML = `
+    <div class="app-card">
+      <div class="app-header">
+        <div>
+          <div class="app-header-title">Business idea generator</div>
+          <div class="app-header-sub">Free — answer 4 questions</div>
+        </div>
+        <div class="step-indicator" id="gen-dots"></div>
+      </div>
+      <div class="app-body" id="gen-body"></div>
+    </div>`;
+  document.getElementById('free-chat-section').style.display = 'none';
+  renderGenStep();
+}
+
 function buildDots(current) {
   const c = document.getElementById('gen-dots'); if (!c) return; c.innerHTML = '';
   for (let i = 0; i < 4; i++) { const d = document.createElement('div'); d.className = 'step-dot' + (i < current ? ' done' : i === current ? ' active' : ''); c.appendChild(d); }
 }
+
 function renderGenStep() {
   buildDots(genStep);
   if (genStep >= 4) { generateIdea(); return; }
@@ -457,13 +651,16 @@ function renderGenStep() {
     <div class="opts">${q.opts.map((o,i) => `<button class="opt" onclick="selectOpt(${i},'${o.label}')" id="opt-${i}"><span class="opt-icon">${o.icon}</span><span class="opt-label">${o.label}</span><span class="opt-desc">${o.desc}</span></button>`).join('')}</div>
     <button class="next-btn" id="gen-next" onclick="nextGenStep()" disabled>Continue →</button>`;
 }
+
 function selectOpt(i, val) {
   document.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
   document.getElementById('opt-' + i).classList.add('sel');
   genAnswers[genStep] = val;
   document.getElementById('gen-next').disabled = false;
 }
+
 function nextGenStep() { genStep++; renderGenStep(); }
+
 async function generateIdea() {
   buildDots(4);
   document.getElementById('gen-body').innerHTML = `<div class="loading"><div class="spinner"></div><p>Building your personalized idea...</p></div>`;
@@ -473,24 +670,39 @@ async function generateIdea() {
     let text = Array.isArray(raw.content) ? raw.content.map(i=>i.text||'').join('') : raw.content || '';
     text = text.replace(/```json|```/g,'').trim();
     const res = JSON.parse(text);
-    document.getElementById('gen-body').innerHTML = `
-      <div class="result-section"><span class="result-badge">✦ Your idea</span><div class="result-title">${res.idea_name}</div><div class="result-desc">${res.idea_summary}</div><div class="result-desc" style="margin-top:8px;font-style:italic;opacity:0.7">${res.why_it_fits}</div></div>
-      <div class="result-section"><div class="result-title">Your first 4 steps</div><ul class="steps-list">${res.first_steps.map(s=>`<li>${s}</li>`).join('')}</ul></div>
-      <div class="tools-section"><div class="tools-title"><i class="ti ti-sparkles"></i> AI tools to help you start</div><div class="tools-grid">${res.ai_tools.map(t=>`<div class="tool-card"><div class="tool-name">${t.name}</div><div class="tool-desc">${t.desc}</div><a href="${t.url}" target="_blank" class="tool-badge">Visit →</a></div>`).join('')}</div></div>
-      <div class="encourage">💬 ${res.encouragement}</div>
-      <div class="upgrade-banner"><div class="ub-text"><div class="ub-title">Want unlimited AI mentor + full roadmap?</div><div class="ub-desc">Unlock week-by-week plan, unlimited chat & more.</div></div><button class="btn btn-primary" onclick="showPage('premium')">Upgrade ✦</button></div>
-      <button class="restart-btn" onclick="initGenerator()">↺ Start over</button>`;
+    saveData({ idea: res, answers: genAnswers });
+    updateDaysActive();
+    showSavedResult(res);
     document.getElementById('free-chat-section').style.display = 'block';
-    initFreeChat(res.idea_name); updateCounter(); checkLimit();
+    initFreeChat(res.idea_name);
+    updateCounter(); checkLimit();
   } catch(e) {
     document.getElementById('gen-body').innerHTML = `<div class="result-section"><div class="result-desc">Error: ${e.message}</div></div><button class="restart-btn" onclick="initGenerator()">↺ Try again</button>`;
   }
 }
+
+// ── FREE CHAT ──
 const freeChatHistory = [];
 function initFreeChat(ideaName) {
   freeChatHistory.length = 0;
   addFreeMsg('ai', `Nice idea! I'm here to help you think through "${ideaName}". What do you want to know? You have ${getMsgsLeft()} free messages today.`);
 }
+
+function restoreFreeChatHistory(data) {
+  if (data.freeChatHistory && data.freeChatHistory.length > 0) {
+    freeChatHistory.length = 0;
+    data.freeChatHistory.forEach(m => freeChatHistory.push(m));
+    const msgs = document.getElementById('free-messages');
+    if (!msgs) return;
+    msgs.innerHTML = '';
+    freeChatHistory.forEach(m => addFreeMsg(m.role, m.content));
+    addFreeMsg('ai', `Welcome back! 👋 Ready to keep building your business? You have ${getMsgsLeft()} messages left today.`);
+  } else {
+    const data2 = loadData();
+    initFreeChat(data2.idea ? data2.idea.idea_name : 'your idea');
+  }
+}
+
 function addFreeMsg(role, text) {
   const isUser = role === 'user';
   const msgs = document.getElementById('free-messages'); if (!msgs) return;
@@ -505,6 +717,7 @@ function addFreeTyping() {
   msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
 }
 function removeFreeTyping() { const t=document.getElementById('free-typing'); if(t)t.remove(); }
+
 async function sendFreeChat() {
   if (getMsgsLeft()<=0){checkLimit();return;}
   const inp=document.getElementById('free-input');
@@ -518,12 +731,29 @@ async function sendFreeChat() {
     const reply=Array.isArray(raw.content)?raw.content.map(i=>i.text||'').join(''):raw.content||'Something went wrong!';
     removeFreeTyping(); addFreeMsg('ai',reply);
     freeChatHistory.push({role:'assistant',content:reply});
+    saveData({ freeChatHistory: freeChatHistory.slice(-20) });
   } catch(e){removeFreeTyping();addFreeMsg('ai','Something went wrong — try again!');}
   checkLimit();
 }
 function handleFreeKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendFreeChat();}}
+
+// ── PREMIUM CHAT ──
 const chatHistory=[];let chatReady=false;
-function initChat(){chatReady=true;addMsg('ai',"Hey! I'm your Startify mentor. I know you're building your business — I'm here every step of the way. What's on your mind today?");}
+function initChat(){
+  chatReady=true;
+  const data=loadData();
+  const ideaName = data.idea ? data.idea.idea_name : 'your business';
+  if (data.premiumChatHistory && data.premiumChatHistory.length > 0) {
+    chatHistory.length = 0;
+    data.premiumChatHistory.forEach(m => chatHistory.push(m));
+    const msgs = document.getElementById('messages');
+    msgs.innerHTML = '';
+    chatHistory.forEach(m => addMsg(m.role, m.content));
+    addMsg('ai', `Welcome back! 👋 Ready to keep building "${ideaName}"? I remember everything — let's keep going.`);
+  } else {
+    addMsg('ai',`Hey! I'm your Startify mentor. I know you're working on "${ideaName}" — I'm here every step of the way. What's on your mind today?`);
+  }
+}
 function now(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
 function addMsg(role,text){
   const isUser=role==='user';
@@ -550,6 +780,7 @@ async function sendChat(){
     const reply=Array.isArray(raw.content)?raw.content.map(i=>i.text||'').join(''):raw.content||'Something went wrong!';
     removeTyping(); addMsg('ai',reply);
     chatHistory.push({role:'assistant',content:reply});
+    saveData({ premiumChatHistory: chatHistory.slice(-30) });
   }catch(e){removeTyping();addMsg('ai','Something went wrong — try again!');}
 }
 function chipSend(t){document.getElementById('chat-input').value=t;sendChat();}
@@ -560,7 +791,68 @@ function switchPanel(p){
   document.getElementById('panel-roadmap').className='panel'+(p==='roadmap'?' open':'');
   document.getElementById('panel-tracker').className='panel'+(p==='tracker'?' open':'');
   ['chat','roadmap','tracker'].forEach(x=>{document.getElementById('sb-'+x).className='sb-nav'+(x===p?' active':'');});
+  if(p==='tracker') loadTrackerData();
 }
+
+// ── ROADMAP TASKS ──
+function toggleTask(id) {
+  const data = loadData();
+  const tasks = data.tasks || {};
+  tasks[id] = !tasks[id];
+  saveData({ tasks });
+  renderTask(id, tasks[id]);
+  updateTaskCount(tasks);
+}
+function renderTask(id, done) {
+  const li = document.getElementById('task-' + id);
+  const icon = document.getElementById('task-icon-' + id);
+  if (!li || !icon) return;
+  li.className = done ? 'done' : '';
+  icon.className = done ? 'ti ti-circle-check' : 'ti ti-circle';
+}
+function updateTaskCount(tasks) {
+  const count = Object.values(tasks).filter(Boolean).length;
+  const el = document.getElementById('stat-tasks');
+  if (el) el.textContent = count;
+}
+
+// ── MILESTONES ──
+function toggleMilestone(id) {
+  const data = loadData();
+  const ms = data.milestones || {};
+  ms[id] = !ms[id];
+  saveData({ milestones: ms });
+  renderMilestone(id, ms[id]);
+}
+function renderMilestone(id, done) {
+  const el = document.getElementById('ms-' + id);
+  const icon = document.getElementById('ms-icon-' + id);
+  const sub = document.getElementById('ms-sub-' + id);
+  if (!el || !icon) return;
+  el.className = 'milestone' + (done ? ' done' : '');
+  icon.className = done ? 'ti ti-circle-check' : 'ti ti-lock';
+  icon.style.color = done ? 'var(--cyan)' : 'var(--text3)';
+  if (sub) sub.textContent = done ? 'Completed ✓' : 'Not done yet';
+}
+
+// ── LOAD TRACKER DATA ──
+function loadTrackerData() {
+  const data = loadData();
+  const tasks = data.tasks || {};
+  const ms = data.milestones || {};
+  const days = (data.daysActive || []).length;
+  for (let i = 0; i <= 11; i++) renderTask(i, !!tasks[i]);
+  for (let i = 1; i <= 4; i++) renderMilestone(i, !!ms[i]);
+  updateTaskCount(tasks);
+  const el = document.getElementById('stat-days');
+  if (el) el.textContent = days || 1;
+}
+
+// ── INIT ──
+window.addEventListener('load', () => {
+  updateDaysActive();
+  smartStart();
+});
 </script>
 </body>
 </html>
