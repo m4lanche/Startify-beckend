@@ -11,12 +11,9 @@ export default async function handler(req, res) {
 
     // IMAGE GENERATION
     if (type === 'image') {
-
-      // Check if key exists
       if (!process.env.STABILITY_API_KEY) {
         return res.status(500).json({ error: 'Stability API key not configured' });
       }
-
       const response = await fetch('https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image', {
         method: 'POST',
         headers: {
@@ -36,21 +33,40 @@ export default async function handler(req, res) {
           steps: 30
         })
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
-        return res.status(500).json({ error: data.message || JSON.stringify(data) });
-      }
-
+      if (!response.ok) return res.status(500).json({ error: data.message || JSON.stringify(data) });
       return res.status(200).json({ image: data.artifacts[0].base64 });
+    }
+
+    // SCRIPT GENERATION
+    if (type === 'script') {
+      if (!process.env.ANTHROPIC_API_KEY) {
+        return res.status(500).json({ error: 'Anthropic API key not configured' });
+      }
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 1000,
+          messages: [{
+            role: 'user',
+            content: prompt
+          }]
+        })
+      });
+      const data = await response.json();
+      return res.status(200).json(data);
     }
 
     // CHAT (Claude)
     if (!process.env.ANTHROPIC_API_KEY) {
       return res.status(500).json({ error: 'Anthropic API key not configured' });
     }
-
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -65,7 +81,6 @@ export default async function handler(req, res) {
         messages: messages
       })
     });
-
     const data = await response.json();
     return res.status(200).json(data);
 
