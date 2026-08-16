@@ -11,6 +11,12 @@ export default async function handler(req, res) {
 
     // IMAGE GENERATION
     if (type === 'image') {
+
+      // Check if key exists
+      if (!process.env.STABILITY_API_KEY) {
+        return res.status(500).json({ error: 'Stability API key not configured' });
+      }
+
       const response = await fetch('https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image', {
         method: 'POST',
         headers: {
@@ -34,14 +40,17 @@ export default async function handler(req, res) {
       const data = await response.json();
 
       if (!response.ok) {
-        return res.status(500).json({ error: data.message || 'Image generation failed' });
+        return res.status(500).json({ error: data.message || JSON.stringify(data) });
       }
 
-      const imageBase64 = data.artifacts[0].base64;
-      return res.status(200).json({ image: imageBase64 });
+      return res.status(200).json({ image: data.artifacts[0].base64 });
     }
 
     // CHAT (Claude)
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return res.status(500).json({ error: 'Anthropic API key not configured' });
+    }
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -62,6 +71,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Error:', error);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: error.message || 'Something went wrong' });
   }
 }
