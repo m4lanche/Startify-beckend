@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -214,6 +214,9 @@
     .m-text { font-size: 13px; color: var(--text); }
     .m-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
     .milestone.done .m-text { text-decoration: line-through; color: var(--text3); }
+    .studio-tab { flex: 1; padding: 10px; background: transparent; border: none; border-bottom: 2px solid transparent; font-size: 13px; font-weight: 500; color: var(--text2); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+    .studio-tab:hover { color: var(--text); }
+    .studio-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
     .prompt-chip { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 8px 10px; font-size: 12px; color: var(--text2); cursor: pointer; text-align: left; transition: all 0.15s; font-family: 'DM Sans', sans-serif; width: 100%; }
     .prompt-chip:hover { border-color: rgba(0,200,224,0.3); color: var(--cyan); background: var(--card2); }
     .studio-textarea { width: 100%; min-height: 80px; resize: none; border-radius: var(--radius); border: 0.5px solid var(--border2); padding: 10px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg2); line-height: 1.5; margin-bottom: 10px; }
@@ -229,6 +232,10 @@
     .img-btn-re:hover { background: var(--card2); color: var(--text); }
     .studio-label { font-size: 11px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px; }
     .studio-label::before { content:''; width:16px; height:1px; background:var(--cyan); }
+    .copy-btn { padding: 4px 12px; border-radius: 99px; border: 0.5px solid var(--border2); background: transparent; color: var(--text2); font-size: 11px; cursor: pointer; font-family: 'DM Sans', sans-serif; margin-top: 8px; transition: all 0.15s; }
+    .copy-btn:hover { color: var(--cyan); border-color: rgba(0,200,224,0.3); }
+    .script-block { background: var(--bg2); border: 0.5px solid var(--border); border-radius: 12px; padding: 1rem; }
+    .script-block-label { font-size: 11px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px; }
     .glow-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,200,224,0.2), transparent); }
     @media (max-width: 640px) {
       .plans-grid { grid-template-columns: 1fr; }
@@ -254,6 +261,7 @@
   </div>
 </nav>
 
+<!-- HOME -->
 <div class="page active" id="page-home">
   <div class="home-hero">
     <div class="home-badge"><div class="badge-dot"></div> Built by a teen, for teens</div>
@@ -279,7 +287,7 @@
           <li><i class="ti ti-check"></i> Limited chatbot (10 msg/day)</li>
           <li class="dim"><i class="ti ti-x"></i> Unlimited AI mentor</li>
           <li class="dim"><i class="ti ti-x"></i> 8-week roadmap</li>
-          <li class="dim"><i class="ti ti-x"></i> Content Studio (AI images)</li>
+          <li class="dim"><i class="ti ti-x"></i> Content Studio</li>
         </ul>
         <button class="plan-btn plan-btn-ghost" onclick="showPage('generator')">Start for free →</button>
       </div>
@@ -292,8 +300,8 @@
           <li><i class="ti ti-check"></i> Unlimited AI mentor chatbot</li>
           <li><i class="ti ti-check"></i> 8-week business roadmap</li>
           <li><i class="ti ti-check"></i> Progress tracker & milestones</li>
-          <li><i class="ti ti-check"></i> Unstuck button</li>
-          <li><i class="ti ti-check"></i> Content Studio (AI images)</li>
+          <li><i class="ti ti-check"></i> AI image generator</li>
+          <li><i class="ti ti-check"></i> TikTok & Reels script writer</li>
         </ul>
         <button class="plan-btn plan-btn-solid" onclick="showPage('premium')">Get premium →</button>
       </div>
@@ -301,6 +309,7 @@
   </div>
 </div>
 
+<!-- GENERATOR -->
 <div class="page" id="page-generator">
   <div class="app-wrap">
     <div class="app-card">
@@ -327,6 +336,7 @@
   </div>
 </div>
 
+<!-- PREMIUM -->
 <div class="page" id="page-premium">
   <div class="premium-wrap">
     <div class="premium-shell">
@@ -349,6 +359,7 @@
         </div>
       </div>
 
+      <!-- CHAT -->
       <div class="chat-main" id="chat-main">
         <div class="chat-header">
           <div class="chat-avatar"><i class="ti ti-robot"></i></div>
@@ -368,28 +379,61 @@
         </div>
       </div>
 
+      <!-- CONTENT STUDIO -->
       <div class="panel" id="panel-studio">
-        <div class="panel-title">✦ Content Studio</div>
-        <div class="panel-sub">Create AI images for your TikTok, Instagram, and business content — ready to post in seconds.</div>
-        <div style="margin-bottom:1.25rem">
-          <div class="studio-label">Quick templates</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-            <button class="prompt-chip" onclick="useTemplate('A professional product photo for a teen business, clean white background, modern minimalist style, high quality photography')">📦 Product photo</button>
-            <button class="prompt-chip" onclick="useTemplate('A vibrant TikTok thumbnail for a teen entrepreneur, bold colors, eye catching, modern design, energetic')">🎬 TikTok thumbnail</button>
-            <button class="prompt-chip" onclick="useTemplate('A modern logo concept for a teen business, minimalist, professional, clean design, dark background with cyan blue accents')">✨ Logo concept</button>
-            <button class="prompt-chip" onclick="useTemplate('An aesthetic Instagram post background for a teen business, modern, dark theme with neon blue accents, clean layout')">📱 Instagram post</button>
-            <button class="prompt-chip" onclick="useTemplate('A motivational social media banner for a young entrepreneur, bold text style, dark background, inspiring and modern')">💪 Motivation banner</button>
-            <button class="prompt-chip" onclick="useTemplate('A professional business card design concept for a teen entrepreneur, modern minimal, dark theme, clean typography')">🪪 Business card</button>
+        <div style="display:flex;border-bottom:0.5px solid var(--border);margin-bottom:1.25rem">
+          <button class="studio-tab active" id="tab-image" onclick="switchStudioTab('image')">🖼️ Image creator</button>
+          <button class="studio-tab" id="tab-script" onclick="switchStudioTab('script')">🎬 Video script</button>
+        </div>
+
+        <!-- IMAGE TAB -->
+        <div id="studio-image">
+          <div class="panel-sub">Create AI images for your TikTok, Instagram, and business content — ready to post in seconds.</div>
+          <div style="margin-bottom:1.25rem">
+            <div class="studio-label">Quick templates</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <button class="prompt-chip" onclick="useTemplate('A professional product photo for a teen business, clean white background, modern minimalist style, high quality photography')">📦 Product photo</button>
+              <button class="prompt-chip" onclick="useTemplate('A vibrant TikTok thumbnail for a teen entrepreneur, bold colors, eye catching, modern design, energetic')">🎬 TikTok thumbnail</button>
+              <button class="prompt-chip" onclick="useTemplate('A modern logo concept for a teen business, minimalist, professional, clean design, dark background with cyan blue accents')">✨ Logo concept</button>
+              <button class="prompt-chip" onclick="useTemplate('An aesthetic Instagram post background for a teen business, modern, dark theme with neon blue accents, clean layout')">📱 Instagram post</button>
+              <button class="prompt-chip" onclick="useTemplate('A motivational social media banner for a young entrepreneur, bold text style, dark background, inspiring and modern')">💪 Motivation banner</button>
+              <button class="prompt-chip" onclick="useTemplate('A professional business card design concept for a teen entrepreneur, modern minimal, dark theme, clean typography')">🪪 Business card</button>
+            </div>
           </div>
+          <div>
+            <div class="studio-label">Custom prompt</div>
+            <textarea class="studio-textarea" id="image-prompt" placeholder="Describe the image you want to create..."></textarea>
+            <button class="generate-btn" id="generate-btn" onclick="generateImage()">✦ Generate image</button>
+          </div>
+          <div id="image-result"></div>
         </div>
-        <div>
-          <div class="studio-label">Custom prompt</div>
-          <textarea class="studio-textarea" id="image-prompt" placeholder="Describe the image you want to create for your business content..."></textarea>
-          <button class="generate-btn" id="generate-btn" onclick="generateImage()">✦ Generate image</button>
+
+        <!-- SCRIPT TAB -->
+        <div id="studio-script" style="display:none">
+          <div class="panel-sub">Generate viral TikTok and Reels scripts for your business — hook, script, caption and filming tips all ready to copy.</div>
+          <div class="studio-label">Script type</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem">
+            <button class="prompt-chip" id="stype-story" onclick="selectScriptType('story')" style="border-color:rgba(0,200,224,0.3);color:var(--cyan)">📖 My story</button>
+            <button class="prompt-chip" id="stype-product" onclick="selectScriptType('product')">📦 Show my product</button>
+            <button class="prompt-chip" id="stype-tips" onclick="selectScriptType('tips')">💡 Business tips</button>
+            <button class="prompt-chip" id="stype-reveal" onclick="selectScriptType('reveal')">🎉 Results reveal</button>
+            <button class="prompt-chip" id="stype-daylife" onclick="selectScriptType('daylife')">☀️ Day in my life</button>
+            <button class="prompt-chip" id="stype-howto" onclick="selectScriptType('howto')">🛠️ How I started</button>
+          </div>
+          <div class="studio-label">About your business</div>
+          <textarea class="studio-textarea" id="script-business" placeholder="Briefly describe your business (e.g. I sell custom phone cases for teens, I make $200/month)..."></textarea>
+          <div class="studio-label">Platform</div>
+          <div style="display:flex;gap:8px;margin-bottom:1rem">
+            <button class="prompt-chip" id="plat-tiktok" onclick="selectPlatform('tiktok')" style="border-color:rgba(0,200,224,0.3);color:var(--cyan);flex:1">TikTok</button>
+            <button class="prompt-chip" id="plat-reels" onclick="selectPlatform('reels')" style="flex:1">Instagram Reels</button>
+            <button class="prompt-chip" id="plat-both" onclick="selectPlatform('both')" style="flex:1">Both</button>
+          </div>
+          <button class="generate-btn" id="script-btn" onclick="generateScript()">✦ Generate my script</button>
+          <div id="script-result"></div>
         </div>
-        <div id="image-result"></div>
       </div>
 
+      <!-- ROADMAP -->
       <div class="panel" id="panel-roadmap">
         <div class="panel-title">Your 8-week roadmap</div>
         <div class="wk"><div class="wk-label">Week 1</div><div class="wk-title">Validate your idea</div>
@@ -422,6 +466,7 @@
         </div>
       </div>
 
+      <!-- TRACKER -->
       <div class="panel" id="panel-tracker">
         <div class="panel-title">Your progress</div>
         <div class="stat-grid">
@@ -446,58 +491,39 @@ const BACKEND = 'https://startify-beckend.vercel.app/api/chat';
 const FREE_LIMIT = 10;
 const STORAGE_KEY = 'startify_data';
 
-function saveData(updates) {
-  const data = loadData();
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...data, ...updates }));
-}
-function loadData() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
-}
-function clearData() {
-  localStorage.removeItem(STORAGE_KEY);
-  localStorage.removeItem('startify_msgs_' + new Date().toDateString());
-}
-function updateDaysActive() {
-  const data = loadData();
-  const today = new Date().toDateString();
-  const days = data.daysActive || [];
-  if (!days.includes(today)) { days.push(today); saveData({ daysActive: days }); }
-  return days.length;
-}
-function showPage(p) {
-  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-  document.getElementById('page-' + p).classList.add('active');
+function saveData(u){const d=loadData();localStorage.setItem(STORAGE_KEY,JSON.stringify({...d,...u}));}
+function loadData(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');}catch{return{};}}
+function clearData(){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem('startify_msgs_'+new Date().toDateString());}
+function updateDaysActive(){const d=loadData();const t=new Date().toDateString();const days=d.daysActive||[];if(!days.includes(t)){days.push(t);saveData({daysActive:days});}return days.length;}
+
+function showPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
   window.scrollTo(0,0);
-  if (p === 'generator') checkAndInitGenerator();
-  if (p === 'premium' && !chatReady) initChat();
-  if (p === 'premium') loadTrackerData();
+  if(p==='generator')checkAndInitGenerator();
+  if(p==='premium'&&!chatReady)initChat();
+  if(p==='premium')loadTrackerData();
 }
-function smartStart() {
-  const data = loadData();
-  if (data.idea) { showWelcomeBack(data); }
-  else {
-    document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-    document.getElementById('page-generator').classList.add('active');
-    initGenerator();
-  }
+
+function smartStart(){
+  const d=loadData();
+  if(d.idea){showWelcomeBack(d);}
+  else{document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('page-generator').classList.add('active');initGenerator();}
 }
-function checkAndInitGenerator() {
-  const data = loadData();
-  if (data.idea) { showWelcomeBack(data); } else { initGenerator(); }
-}
-function showWelcomeBack(data) {
-  const days = updateDaysActive();
-  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+
+function checkAndInitGenerator(){const d=loadData();if(d.idea){showWelcomeBack(d);}else{initGenerator();}}
+
+function showWelcomeBack(data){
+  const days=updateDaysActive();
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.getElementById('page-generator').classList.add('active');
-  const fcs = document.getElementById('free-chat-section');
-  if (fcs) fcs.style.display = 'none';
-  const wrap = document.querySelector('.app-wrap');
-  wrap.innerHTML = `
+  const fcs=document.getElementById('free-chat-section');if(fcs)fcs.style.display='none';
+  document.querySelector('.app-wrap').innerHTML=`
     <div class="welcome-card">
       <div class="welcome-icon">👋</div>
       <div class="days-badge">🔥 Day ${days} — keep going!</div>
       <div class="welcome-title">Welcome back to <span>Startify</span></div>
-      <div class="welcome-sub">Your business idea is saved and ready. Pick up right where you left off.</div>
+      <div class="welcome-sub">Your business idea is saved. Pick up right where you left off.</div>
       <div class="welcome-idea">
         <div class="welcome-idea-label">Your business idea</div>
         <div class="welcome-idea-name">${data.idea.idea_name}</div>
@@ -510,320 +536,203 @@ function showWelcomeBack(data) {
       </div>
     </div>`;
 }
-function resumeIdea() {
-  const data = loadData();
-  if (!data.idea) { initGenerator(); return; }
-  const wrap = document.querySelector('.app-wrap');
-  wrap.innerHTML = `
-    <div class="app-card">
-      <div class="app-header">
-        <div><div class="app-header-title">Business idea generator</div><div class="app-header-sub">Your saved idea</div></div>
-        <div class="step-indicator" id="gen-dots"></div>
-      </div>
-      <div class="app-body" id="gen-body"></div>
-    </div>`;
+
+function resumeIdea(){
+  const data=loadData();if(!data.idea){initGenerator();return;}
+  document.querySelector('.app-wrap').innerHTML=`<div class="app-card"><div class="app-header"><div><div class="app-header-title">Business idea generator</div><div class="app-header-sub">Your saved idea</div></div><div class="step-indicator" id="gen-dots"></div></div><div class="app-body" id="gen-body"></div></div>`;
   showSavedResult(data.idea);
-  const fcs = document.getElementById('free-chat-section');
-  if (fcs) fcs.style.display = 'block';
-  restoreFreeChatHistory(data);
-  updateCounter(); checkLimit();
+  const fcs=document.getElementById('free-chat-section');if(fcs)fcs.style.display='block';
+  restoreFreeChatHistory(data);updateCounter();checkLimit();
 }
-function showSavedResult(res) {
-  const dots = document.getElementById('gen-dots');
-  if (dots) dots.innerHTML = Array(4).fill('<div class="step-dot done"></div>').join('');
-  document.getElementById('gen-body').innerHTML = `
+
+function showSavedResult(res){
+  const dots=document.getElementById('gen-dots');
+  if(dots)dots.innerHTML=Array(4).fill('<div class="step-dot done"></div>').join('');
+  document.getElementById('gen-body').innerHTML=`
     <div class="result-section"><span class="result-badge">✦ Your idea</span><div class="result-title">${res.idea_name}</div><div class="result-desc">${res.idea_summary}</div><div class="result-desc" style="margin-top:8px;font-style:italic;opacity:0.7">${res.why_it_fits}</div></div>
     <div class="result-section"><div class="result-title">Your first 4 steps</div><ul class="steps-list">${res.first_steps.map(s=>`<li>${s}</li>`).join('')}</ul></div>
     <div class="tools-section"><div class="tools-title"><i class="ti ti-sparkles"></i> AI tools to help you start</div><div class="tools-grid">${res.ai_tools.map(t=>`<div class="tool-card"><div class="tool-name">${t.name}</div><div class="tool-desc">${t.desc}</div><a href="${t.url}" target="_blank" class="tool-badge">Visit →</a></div>`).join('')}</div></div>
     <div class="encourage">💬 ${res.encouragement}</div>
-    <div class="upgrade-banner"><div class="ub-text"><div class="ub-title">Want unlimited AI mentor + Content Studio?</div><div class="ub-desc">Unlock roadmap, unlimited chat, AI image creator & more.</div></div><button class="btn btn-primary" onclick="showPage('premium')">Upgrade ✦</button></div>
+    <div class="upgrade-banner"><div class="ub-text"><div class="ub-title">Want unlimited AI mentor + Content Studio?</div><div class="ub-desc">Unlock roadmap, unlimited chat, AI images & video scripts.</div></div><button class="btn btn-primary" onclick="showPage('premium')">Upgrade ✦</button></div>
     <button class="restart-btn" onclick="confirmReset()">↺ Start over with a new idea</button>`;
 }
-function confirmReset() {
-  if (confirm('Are you sure? Your saved idea and chat history will be deleted.')) { clearData(); location.reload(); }
+
+function confirmReset(){if(confirm('Are you sure? Your saved idea and chat history will be deleted.')){clearData();location.reload();}}
+
+function getTodayKey(){return 'startify_msgs_'+new Date().toDateString();}
+function getMsgsUsed(){return parseInt(localStorage.getItem(getTodayKey())||'0');}
+function addMsgUsed(){localStorage.setItem(getTodayKey(),getMsgsUsed()+1);}
+function getMsgsLeft(){return Math.max(0,FREE_LIMIT-getMsgsUsed());}
+function getTimeUntilMidnight(){const now=new Date(),m=new Date();m.setHours(24,0,0,0);const d=m-now;return `${Math.floor(d/3600000)}h ${Math.floor((d%3600000)/60000)}m`;}
+function updateCounter(){const left=getMsgsLeft();const el=document.getElementById('msg-counter');if(!el)return;el.textContent=left+' messages left today';el.className='msg-counter'+(left<=3?' low':'');}
+function checkLimit(){
+  const left=getMsgsLeft();const la=document.getElementById('limit-area');const fi=document.getElementById('free-input');const sb=document.getElementById('free-send-btn');
+  if(!la)return;
+  if(left===0){la.innerHTML=`<div class="limit-banner"><div class="limit-banner-title">🔒 Daily limit reached</div><div class="limit-banner-desc">You've used all 10 free messages for today.</div><div class="limit-timer">⏰ Resets in ${getTimeUntilMidnight()}</div><div style="margin-top:10px"><button style="width:100%;padding:10px;border-radius:99px;background:var(--cyan);color:var(--bg);border:none;cursor:pointer;font-weight:700;font-family:'DM Sans',sans-serif;font-size:13px" onclick="showPage('premium')">Upgrade for unlimited ✦</button></div></div>`;if(fi)fi.disabled=true;if(sb)sb.disabled=true;}
+  else{la.innerHTML='';if(fi)fi.disabled=false;if(sb)sb.disabled=false;}
 }
-function getTodayKey() { return 'startify_msgs_' + new Date().toDateString(); }
-function getMsgsUsed() { return parseInt(localStorage.getItem(getTodayKey()) || '0'); }
-function addMsgUsed() { localStorage.setItem(getTodayKey(), getMsgsUsed() + 1); }
-function getMsgsLeft() { return Math.max(0, FREE_LIMIT - getMsgsUsed()); }
-function getTimeUntilMidnight() {
-  const now = new Date(), midnight = new Date();
-  midnight.setHours(24,0,0,0);
-  const diff = midnight - now;
-  return `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m`;
-}
-function updateCounter() {
-  const left = getMsgsLeft();
-  const el = document.getElementById('msg-counter');
-  if (!el) return;
-  el.textContent = left + ' messages left today';
-  el.className = 'msg-counter' + (left <= 3 ? ' low' : '');
-}
-function checkLimit() {
-  const left = getMsgsLeft();
-  const la = document.getElementById('limit-area');
-  const fi = document.getElementById('free-input');
-  const sb = document.getElementById('free-send-btn');
-  if (!la) return;
-  if (left === 0) {
-    la.innerHTML = `<div class="limit-banner"><div class="limit-banner-title">🔒 Daily limit reached</div><div class="limit-banner-desc">You've used all 10 free messages for today.</div><div class="limit-timer">⏰ Resets in ${getTimeUntilMidnight()}</div><div style="margin-top:10px"><button style="width:100%;padding:10px;border-radius:99px;background:var(--cyan);color:var(--bg);border:none;cursor:pointer;font-weight:700;font-family:'DM Sans',sans-serif;font-size:13px" onclick="showPage('premium')">Upgrade for unlimited ✦</button></div></div>`;
-    if (fi) fi.disabled = true;
-    if (sb) sb.disabled = true;
-  } else {
-    la.innerHTML = '';
-    if (fi) fi.disabled = false;
-    if (sb) sb.disabled = false;
-  }
-}
-const questions = [
-  { label:'Step 1 of 4', q:'What are you most into?', opts:[{icon:'🎮',label:'Tech & gaming',desc:'Apps, content, coding'},{icon:'👗',label:'Fashion & beauty',desc:'Style, makeup, trends'},{icon:'🎨',label:'Art & design',desc:'Drawing, branding, media'},{icon:'⚽',label:'Sports & fitness',desc:'Training, coaching, gear'},{icon:'🍕',label:'Food & cooking',desc:'Baking, meal prep, recipes'},{icon:'🎵',label:'Music & content',desc:'Producing, streaming, videos'}]},
-  { label:'Step 2 of 4', q:'How much time can you dedicate per week?', opts:[{icon:'⏰',label:'1–3 hours',desc:'Very busy with school'},{icon:'🕓',label:'4–8 hours',desc:'A few hours on weekends'},{icon:'🕗',label:'8–15 hours',desc:'Pretty committed'},{icon:'🔥',label:'15+ hours',desc:'Full hustle mode'}]},
-  { label:'Step 3 of 4', q:"What's your starting budget?", opts:[{icon:'🪙',label:'Zero budget',desc:'Start completely free'},{icon:'💵',label:'Under $50',desc:'A little to invest'},{icon:'💰',label:'$50–$200',desc:'Some savings available'},{icon:'💳',label:'$200+',desc:'Ready to invest more'}]},
-  { label:'Step 4 of 4', q:"What's your biggest fear?", opts:[{icon:'👀',label:'Failing or being judged',desc:'What will people think?'},{icon:'🗺️',label:'Not knowing where to start',desc:'Too overwhelming'},{icon:'👨‍👩‍👧',label:'No support from family',desc:"Parents don't get it"},{icon:'🔋',label:'Running out of motivation',desc:'Hard to stay consistent'}]}
+
+const questions=[
+  {label:'Step 1 of 4',q:'What are you most into?',opts:[{icon:'🎮',label:'Tech & gaming',desc:'Apps, content, coding'},{icon:'👗',label:'Fashion & beauty',desc:'Style, makeup, trends'},{icon:'🎨',label:'Art & design',desc:'Drawing, branding, media'},{icon:'⚽',label:'Sports & fitness',desc:'Training, coaching, gear'},{icon:'🍕',label:'Food & cooking',desc:'Baking, meal prep, recipes'},{icon:'🎵',label:'Music & content',desc:'Producing, streaming, videos'}]},
+  {label:'Step 2 of 4',q:'How much time can you dedicate per week?',opts:[{icon:'⏰',label:'1–3 hours',desc:'Very busy with school'},{icon:'🕓',label:'4–8 hours',desc:'A few hours on weekends'},{icon:'🕗',label:'8–15 hours',desc:'Pretty committed'},{icon:'🔥',label:'15+ hours',desc:'Full hustle mode'}]},
+  {label:'Step 3 of 4',q:"What's your starting budget?",opts:[{icon:'🪙',label:'Zero budget',desc:'Start completely free'},{icon:'💵',label:'Under $50',desc:'A little to invest'},{icon:'💰',label:'$50–$200',desc:'Some savings available'},{icon:'💳',label:'$200+',desc:'Ready to invest more'}]},
+  {label:'Step 4 of 4',q:"What's your biggest fear?",opts:[{icon:'👀',label:'Failing or being judged',desc:'What will people think?'},{icon:'🗺️',label:'Not knowing where to start',desc:'Too overwhelming'},{icon:'👨‍👩‍👧',label:'No support from family',desc:"Parents don't get it"},{icon:'🔋',label:'Running out of motivation',desc:'Hard to stay consistent'}]}
 ];
-let genStep = 0, genAnswers = {};
-function initGenerator() {
-  genStep = 0; genAnswers = {};
-  const wrap = document.querySelector('.app-wrap');
-  if (!wrap) return;
-  wrap.innerHTML = `<div class="app-card"><div class="app-header"><div><div class="app-header-title">Business idea generator</div><div class="app-header-sub">Free — answer 4 questions</div></div><div class="step-indicator" id="gen-dots"></div></div><div class="app-body" id="gen-body"></div></div>`;
-  const fcs = document.getElementById('free-chat-section');
-  if (fcs) fcs.style.display = 'none';
+let genStep=0,genAnswers={};
+
+function initGenerator(){
+  genStep=0;genAnswers={};
+  const wrap=document.querySelector('.app-wrap');if(!wrap)return;
+  wrap.innerHTML=`<div class="app-card"><div class="app-header"><div><div class="app-header-title">Business idea generator</div><div class="app-header-sub">Free — answer 4 questions</div></div><div class="step-indicator" id="gen-dots"></div></div><div class="app-body" id="gen-body"></div></div>`;
+  const fcs=document.getElementById('free-chat-section');if(fcs)fcs.style.display='none';
   renderGenStep();
 }
-function buildDots(current) {
-  const c = document.getElementById('gen-dots'); if (!c) return; c.innerHTML = '';
-  for (let i = 0; i < 4; i++) { const d = document.createElement('div'); d.className = 'step-dot' + (i < current ? ' done' : i === current ? ' active' : ''); c.appendChild(d); }
+
+function buildDots(current){const c=document.getElementById('gen-dots');if(!c)return;c.innerHTML='';for(let i=0;i<4;i++){const d=document.createElement('div');d.className='step-dot'+(i<current?' done':i===current?' active':'');c.appendChild(d);}}
+
+function renderGenStep(){
+  buildDots(genStep);if(genStep>=4){generateIdea();return;}
+  const q=questions[genStep];
+  document.getElementById('gen-body').innerHTML=`<div class="q-label">${q.label}</div><div class="q-text">${q.q}</div><div class="opts">${q.opts.map((o,i)=>`<button class="opt" onclick="selectOpt(${i},'${o.label}')" id="opt-${i}"><span class="opt-icon">${o.icon}</span><span class="opt-label">${o.label}</span><span class="opt-desc">${o.desc}</span></button>`).join('')}</div><button class="next-btn" id="gen-next" onclick="nextGenStep()" disabled>Continue →</button>`;
 }
-function renderGenStep() {
-  buildDots(genStep);
-  if (genStep >= 4) { generateIdea(); return; }
-  const q = questions[genStep];
-  document.getElementById('gen-body').innerHTML = `
-    <div class="q-label">${q.label}</div>
-    <div class="q-text">${q.q}</div>
-    <div class="opts">${q.opts.map((o,i) => `<button class="opt" onclick="selectOpt(${i},'${o.label}')" id="opt-${i}"><span class="opt-icon">${o.icon}</span><span class="opt-label">${o.label}</span><span class="opt-desc">${o.desc}</span></button>`).join('')}</div>
-    <button class="next-btn" id="gen-next" onclick="nextGenStep()" disabled>Continue →</button>`;
+
+function selectOpt(i,val){document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));document.getElementById('opt-'+i).classList.add('sel');genAnswers[genStep]=val;document.getElementById('gen-next').disabled=false;}
+function nextGenStep(){genStep++;renderGenStep();}
+
+async function generateIdea(){
+  buildDots(4);document.getElementById('gen-body').innerHTML=`<div class="loading"><div class="spinner"></div><p>Building your personalized idea...</p></div>`;
+  try{
+    const r=await fetch(BACKEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:`You are a business advisor for teenagers. A teen answered:\n- Interests: ${genAnswers[0]}\n- Time per week: ${genAnswers[1]}\n- Budget: ${genAnswers[2]}\n- Biggest fear: ${genAnswers[3]}\nGive ONE specific realistic business idea AND recommend 4 real AI tools. Respond ONLY with valid JSON, no markdown:\n{"idea_name":"name","idea_summary":"2 sentences","why_it_fits":"1 sentence","first_steps":["step1","step2","step3","step4"],"encouragement":"1 sentence","ai_tools":[{"name":"tool name","url":"https://...","desc":"one sentence"},{"name":"tool name","url":"https://...","desc":"one sentence"},{"name":"tool name","url":"https://...","desc":"one sentence"},{"name":"tool name","url":"https://...","desc":"one sentence"}]}`}]})});
+    const raw=await r.json();let text=Array.isArray(raw.content)?raw.content.map(i=>i.text||'').join(''):raw.content||'';
+    text=text.replace(/```json|```/g,'').trim();const res=JSON.parse(text);
+    saveData({idea:res,answers:genAnswers});updateDaysActive();showSavedResult(res);
+    const fcs=document.getElementById('free-chat-section');if(fcs)fcs.style.display='block';
+    initFreeChat(res.idea_name);updateCounter();checkLimit();
+  }catch(e){document.getElementById('gen-body').innerHTML=`<div class="result-section"><div class="result-desc">Error: ${e.message}</div></div><button class="restart-btn" onclick="initGenerator()">↺ Try again</button>`;}
 }
-function selectOpt(i, val) {
-  document.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
-  document.getElementById('opt-' + i).classList.add('sel');
-  genAnswers[genStep] = val;
-  document.getElementById('gen-next').disabled = false;
+
+const freeChatHistory=[];
+function initFreeChat(ideaName){freeChatHistory.length=0;addFreeMsg('ai',`Nice idea! I'm here to help you think through "${ideaName}". What do you want to know? You have ${getMsgsLeft()} free messages today.`);}
+function restoreFreeChatHistory(data){
+  if(data.freeChatHistory&&data.freeChatHistory.length>0){freeChatHistory.length=0;data.freeChatHistory.forEach(m=>freeChatHistory.push(m));const msgs=document.getElementById('free-messages');if(msgs){msgs.innerHTML='';freeChatHistory.forEach(m=>addFreeMsg(m.role,m.content));}addFreeMsg('ai',`Welcome back! 👋 You have ${getMsgsLeft()} messages left today.`);}
+  else{const d=loadData();initFreeChat(d.idea?d.idea.idea_name:'your idea');}
 }
-function nextGenStep() { genStep++; renderGenStep(); }
-async function generateIdea() {
-  buildDots(4);
-  document.getElementById('gen-body').innerHTML = `<div class="loading"><div class="spinner"></div><p>Building your personalized idea...</p></div>`;
-  try {
-    const r = await fetch(BACKEND, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ messages:[{role:'user', content:`You are a business advisor for teenagers. A teen answered:\n- Interests: ${genAnswers[0]}\n- Time per week: ${genAnswers[1]}\n- Budget: ${genAnswers[2]}\n- Biggest fear: ${genAnswers[3]}\nGive ONE specific realistic business idea AND recommend 4 real AI tools. Respond ONLY with valid JSON, no markdown:\n{"idea_name":"name","idea_summary":"2 sentences","why_it_fits":"1 sentence","first_steps":["step1","step2","step3","step4"],"encouragement":"1 sentence","ai_tools":[{"name":"tool name","url":"https://...","desc":"one sentence"},{"name":"tool name","url":"https://...","desc":"one sentence"},{"name":"tool name","url":"https://...","desc":"one sentence"},{"name":"tool name","url":"https://...","desc":"one sentence"}]}`}] }) });
-    const raw = await r.json();
-    let text = Array.isArray(raw.content) ? raw.content.map(i=>i.text||'').join('') : raw.content || '';
-    text = text.replace(/```json|```/g,'').trim();
-    const res = JSON.parse(text);
-    saveData({ idea: res, answers: genAnswers });
-    updateDaysActive();
-    showSavedResult(res);
-    const fcs = document.getElementById('free-chat-section');
-    if (fcs) fcs.style.display = 'block';
-    initFreeChat(res.idea_name);
-    updateCounter(); checkLimit();
-  } catch(e) {
-    document.getElementById('gen-body').innerHTML = `<div class="result-section"><div class="result-desc">Error: ${e.message}</div></div><button class="restart-btn" onclick="initGenerator()">↺ Try again</button>`;
-  }
-}
-const freeChatHistory = [];
-function initFreeChat(ideaName) {
-  freeChatHistory.length = 0;
-  addFreeMsg('ai', `Nice idea! I'm here to help you think through "${ideaName}". What do you want to know? You have ${getMsgsLeft()} free messages today.`);
-}
-function restoreFreeChatHistory(data) {
-  if (data.freeChatHistory && data.freeChatHistory.length > 0) {
-    freeChatHistory.length = 0;
-    data.freeChatHistory.forEach(m => freeChatHistory.push(m));
-    const msgs = document.getElementById('free-messages');
-    if (msgs) { msgs.innerHTML = ''; freeChatHistory.forEach(m => addFreeMsg(m.role, m.content)); }
-    addFreeMsg('ai', `Welcome back! 👋 You have ${getMsgsLeft()} messages left today. Keep building!`);
-  } else {
-    const d = loadData();
-    initFreeChat(d.idea ? d.idea.idea_name : 'your idea');
-  }
-}
-function addFreeMsg(role, text) {
-  const isUser = role === 'user';
-  const msgs = document.getElementById('free-messages'); if (!msgs) return;
-  const d = document.createElement('div'); d.className = 'msg ' + (isUser?'user':'ai');
-  d.innerHTML = `<div class="msg-av ${isUser?'me':'ai'}">${isUser?'YO':'<i class="ti ti-robot"></i>'}</div><div><div class="msg-bubble">${text}</div></div>`;
-  msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
-}
-function addFreeTyping() {
-  const msgs = document.getElementById('free-messages');
-  const d = document.createElement('div'); d.className='msg ai'; d.id='free-typing';
-  d.innerHTML=`<div class="msg-av ai"><i class="ti ti-robot"></i></div><div class="typing-ind"><span></span><span></span><span></span></div>`;
-  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
-}
-function removeFreeTyping() { const t=document.getElementById('free-typing'); if(t)t.remove(); }
-async function sendFreeChat() {
-  if (getMsgsLeft()<=0){checkLimit();return;}
-  const inp=document.getElementById('free-input');
-  const text=inp.value.trim(); if(!text)return;
-  inp.value=''; addFreeMsg('user',text);
-  freeChatHistory.push({role:'user',content:text});
-  addMsgUsed(); updateCounter(); addFreeTyping();
-  try {
-    const r=await fetch(BACKEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:"You are Startify, a friendly AI business coach for teenagers. Be casual, encouraging and specific. Keep responses to 2-3 sentences max. No bullet points.",messages:freeChatHistory})});
-    const raw=await r.json();
-    const reply=Array.isArray(raw.content)?raw.content.map(i=>i.text||'').join(''):raw.content||'Something went wrong!';
-    removeFreeTyping(); addFreeMsg('ai',reply);
-    freeChatHistory.push({role:'assistant',content:reply});
-    saveData({ freeChatHistory: freeChatHistory.slice(-20) });
-  } catch(e){removeFreeTyping();addFreeMsg('ai','Something went wrong — try again!');}
-  checkLimit();
+function addFreeMsg(role,text){const isUser=role==='user';const msgs=document.getElementById('free-messages');if(!msgs)return;const d=document.createElement('div');d.className='msg '+(isUser?'user':'ai');d.innerHTML=`<div class="msg-av ${isUser?'me':'ai'}">${isUser?'YO':'<i class="ti ti-robot"></i>'}</div><div><div class="msg-bubble">${text}</div></div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+function addFreeTyping(){const msgs=document.getElementById('free-messages');const d=document.createElement('div');d.className='msg ai';d.id='free-typing';d.innerHTML=`<div class="msg-av ai"><i class="ti ti-robot"></i></div><div class="typing-ind"><span></span><span></span><span></span></div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+function removeFreeTyping(){const t=document.getElementById('free-typing');if(t)t.remove();}
+async function sendFreeChat(){
+  if(getMsgsLeft()<=0){checkLimit();return;}const inp=document.getElementById('free-input');const text=inp.value.trim();if(!text)return;
+  inp.value='';addFreeMsg('user',text);freeChatHistory.push({role:'user',content:text});addMsgUsed();updateCounter();addFreeTyping();
+  try{const r=await fetch(BACKEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:"You are Startify, a friendly AI business coach for teenagers. Be casual, encouraging and specific. Keep responses to 2-3 sentences max. No bullet points.",messages:freeChatHistory})});const raw=await r.json();const reply=Array.isArray(raw.content)?raw.content.map(i=>i.text||'').join(''):raw.content||'Something went wrong!';removeFreeTyping();addFreeMsg('ai',reply);freeChatHistory.push({role:'assistant',content:reply});saveData({freeChatHistory:freeChatHistory.slice(-20)});}
+  catch(e){removeFreeTyping();addFreeMsg('ai','Something went wrong — try again!');}checkLimit();
 }
 function handleFreeKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendFreeChat();}}
+
 const chatHistory=[];let chatReady=false;
 function initChat(){
-  chatReady=true;
-  const data=loadData();
-  const ideaName = data.idea ? data.idea.idea_name : 'your business';
-  if (data.premiumChatHistory && data.premiumChatHistory.length > 0) {
-    chatHistory.length = 0;
-    data.premiumChatHistory.forEach(m => chatHistory.push(m));
-    const msgs = document.getElementById('messages');
-    msgs.innerHTML = '';
-    chatHistory.forEach(m => addMsg(m.role, m.content));
-    addMsg('ai', `Welcome back! 👋 Ready to keep building "${ideaName}"? Let's go.`);
-  } else {
-    addMsg('ai',`Hey! I'm your Startify mentor. I know you're working on "${ideaName}" — I'm here every step. What's on your mind?`);
-  }
+  chatReady=true;const data=loadData();const ideaName=data.idea?data.idea.idea_name:'your business';
+  if(data.premiumChatHistory&&data.premiumChatHistory.length>0){chatHistory.length=0;data.premiumChatHistory.forEach(m=>chatHistory.push(m));const msgs=document.getElementById('messages');msgs.innerHTML='';chatHistory.forEach(m=>addMsg(m.role,m.content));addMsg('ai',`Welcome back! 👋 Ready to keep building "${ideaName}"? Let's go.`);}
+  else{addMsg('ai',`Hey! I'm your Startify mentor. I know you're working on "${ideaName}" — I'm here every step. What's on your mind?`);}
 }
 function now(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
-function addMsg(role,text){
-  const isUser=role==='user';
-  const msgs=document.getElementById('messages');
-  const d=document.createElement('div'); d.className='msg '+(isUser?'user':'ai');
-  d.innerHTML=`<div class="msg-av ${isUser?'me':'ai'}">${isUser?'YO':'<i class="ti ti-robot"></i>'}</div><div><div class="msg-bubble">${text}</div><div class="msg-time">${now()}</div></div>`;
-  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
-}
-function addTyping(){
-  const msgs=document.getElementById('messages');
-  const d=document.createElement('div'); d.className='msg ai'; d.id='typing';
-  d.innerHTML=`<div class="msg-av ai"><i class="ti ti-robot"></i></div><div class="typing-ind"><span></span><span></span><span></span></div>`;
-  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
-}
+function addMsg(role,text){const isUser=role==='user';const msgs=document.getElementById('messages');const d=document.createElement('div');d.className='msg '+(isUser?'user':'ai');d.innerHTML=`<div class="msg-av ${isUser?'me':'ai'}">${isUser?'YO':'<i class="ti ti-robot"></i>'}</div><div><div class="msg-bubble">${text}</div><div class="msg-time">${now()}</div></div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+function addTyping(){const msgs=document.getElementById('messages');const d=document.createElement('div');d.className='msg ai';d.id='typing';d.innerHTML=`<div class="msg-av ai"><i class="ti ti-robot"></i></div><div class="typing-ind"><span></span><span></span><span></span></div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
 function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
 async function sendChat(){
-  const inp=document.getElementById('chat-input');
-  const text=inp.value.trim(); if(!text)return;
-  inp.value=''; addMsg('user',text);
-  chatHistory.push({role:'user',content:text}); addTyping();
-  try{
-    const r=await fetch(BACKEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:"You are Startify Mentor, a friendly AI business coach for teenagers. Speak casually like a slightly older teen who already started a business. Be encouraging but honest. Keep responses short (2-4 sentences). No bullet points.",messages:chatHistory})});
-    const raw=await r.json();
-    const reply=Array.isArray(raw.content)?raw.content.map(i=>i.text||'').join(''):raw.content||'Something went wrong!';
-    removeTyping(); addMsg('ai',reply);
-    chatHistory.push({role:'assistant',content:reply});
-    saveData({ premiumChatHistory: chatHistory.slice(-30) });
-  }catch(e){removeTyping();addMsg('ai','Something went wrong — try again!');}
+  const inp=document.getElementById('chat-input');const text=inp.value.trim();if(!text)return;
+  inp.value='';addMsg('user',text);chatHistory.push({role:'user',content:text});addTyping();
+  try{const r=await fetch(BACKEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:"You are Startify Mentor, a friendly AI business coach for teenagers. Speak casually like a slightly older teen who already started a business. Be encouraging but honest. Keep responses short (2-4 sentences). No bullet points.",messages:chatHistory})});const raw=await r.json();const reply=Array.isArray(raw.content)?raw.content.map(i=>i.text||'').join(''):raw.content||'Something went wrong!';removeTyping();addMsg('ai',reply);chatHistory.push({role:'assistant',content:reply});saveData({premiumChatHistory:chatHistory.slice(-30)});}
+  catch(e){removeTyping();addMsg('ai','Something went wrong — try again!');}
 }
 function chipSend(t){document.getElementById('chat-input').value=t;sendChat();}
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
 function unstuck(){switchPanel('chat');chipSend("I feel completely stuck. Give me one tiny thing I can do right now.");}
+
 function switchPanel(p){
   document.getElementById('chat-main').style.display=p==='chat'?'flex':'none';
   document.getElementById('panel-studio').className='panel'+(p==='studio'?' open':'');
   document.getElementById('panel-roadmap').className='panel'+(p==='roadmap'?' open':'');
   document.getElementById('panel-tracker').className='panel'+(p==='tracker'?' open':'');
-  ['chat','studio','roadmap','tracker'].forEach(x=>{
-    const el=document.getElementById('sb-'+x);
-    if(el) el.className='sb-nav'+(x===p?' active':'');
-  });
-  if(p==='tracker') loadTrackerData();
+  ['chat','studio','roadmap','tracker'].forEach(x=>{const el=document.getElementById('sb-'+x);if(el)el.className='sb-nav'+(x===p?' active':'');});
+  if(p==='tracker')loadTrackerData();
 }
-function useTemplate(text) {
-  document.getElementById('image-prompt').value = text;
-  document.getElementById('image-prompt').focus();
+
+function switchStudioTab(tab){
+  document.getElementById('studio-image').style.display=tab==='image'?'block':'none';
+  document.getElementById('studio-script').style.display=tab==='script'?'block':'none';
+  document.getElementById('tab-image').className='studio-tab'+(tab==='image'?' active':'');
+  document.getElementById('tab-script').className='studio-tab'+(tab==='script'?' active':'');
 }
-async function generateImage() {
-  const prompt = document.getElementById('image-prompt').value.trim();
-  if (!prompt) { alert('Please enter a prompt or choose a template first!'); return; }
-  const btn = document.getElementById('generate-btn');
-  const result = document.getElementById('image-result');
-  btn.disabled = true;
-  btn.textContent = '⏳ Generating... (~10 sec)';
-  result.innerHTML = `<div style="text-align:center;padding:2rem;background:var(--bg2);border-radius:12px;border:0.5px solid var(--border)"><div class="spinner" style="margin:0 auto 1rem"></div><div style="font-size:13px;color:var(--text2)">Creating your image... takes about 10 seconds ✨</div></div>`;
-  try {
-    const r = await fetch(BACKEND, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ type:'image', prompt: prompt }) });
-    const data = await r.json();
-    if (data.error) throw new Error(data.error);
-    const imgSrc = `data:image/png;base64,${data.image}`;
-    result.innerHTML = `
-      <div style="background:var(--bg2);border:0.5px solid var(--border);border-radius:12px;padding:1rem;margin-top:1rem">
-        <img src="${imgSrc}" class="generated-img" alt="Generated image" />
-        <div class="img-actions">
-          <a href="${imgSrc}" download="startify-content.png" class="img-btn img-btn-dl">⬇ Download</a>
-          <button onclick="generateImage()" class="img-btn img-btn-re">↺ Regenerate</button>
+
+function useTemplate(text){document.getElementById('image-prompt').value=text;document.getElementById('image-prompt').focus();}
+
+async function generateImage(){
+  const prompt=document.getElementById('image-prompt').value.trim();if(!prompt){alert('Please enter a prompt or choose a template first!');return;}
+  const btn=document.getElementById('generate-btn');const result=document.getElementById('image-result');
+  btn.disabled=true;btn.textContent='⏳ Generating... (~10 sec)';
+  result.innerHTML=`<div style="text-align:center;padding:2rem;background:var(--bg2);border-radius:12px;border:0.5px solid var(--border)"><div class="spinner" style="margin:0 auto 1rem"></div><div style="font-size:13px;color:var(--text2)">Creating your image... ✨</div></div>`;
+  try{
+    const r=await fetch(BACKEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'image',prompt:prompt})});
+    const data=await r.json();if(data.error)throw new Error(data.error);
+    const imgSrc=`data:image/png;base64,${data.image}`;
+    result.innerHTML=`<div style="background:var(--bg2);border:0.5px solid var(--border);border-radius:12px;padding:1rem;margin-top:1rem"><img src="${imgSrc}" class="generated-img" alt="Generated image"/><div class="img-actions"><a href="${imgSrc}" download="startify-content.png" class="img-btn img-btn-dl">⬇ Download</a><button onclick="generateImage()" class="img-btn img-btn-re">↺ Regenerate</button></div><div style="font-size:11px;color:var(--text3);margin-top:0.75rem;text-align:center">Ready to post on TikTok or Instagram 🚀</div></div>`;
+  }catch(e){result.innerHTML=`<div style="background:var(--red-bg);border:0.5px solid rgba(239,68,68,0.2);border-radius:12px;padding:1rem;margin-top:0.75rem;font-size:13px;color:var(--red)">Something went wrong: ${e.message}</div>`;}
+  btn.disabled=false;btn.textContent='✦ Generate image';
+}
+
+let selectedScriptType='story';let selectedPlatform='tiktok';
+function selectScriptType(type){selectedScriptType=type;document.querySelectorAll('[id^="stype-"]').forEach(b=>{b.style.borderColor='';b.style.color='';});const el=document.getElementById('stype-'+type);if(el){el.style.borderColor='rgba(0,200,224,0.3)';el.style.color='var(--cyan)';}}
+function selectPlatform(p){selectedPlatform=p;document.querySelectorAll('[id^="plat-"]').forEach(b=>{b.style.borderColor='';b.style.color='';});const el=document.getElementById('plat-'+p);if(el){el.style.borderColor='rgba(0,200,224,0.3)';el.style.color='var(--cyan)';}}
+
+async function generateScript(){
+  const business=document.getElementById('script-business').value.trim();if(!business){alert('Tell me about your business first!');return;}
+  const btn=document.getElementById('script-btn');const result=document.getElementById('script-result');
+  btn.disabled=true;btn.textContent='⏳ Writing your script...';
+  result.innerHTML=`<div style="text-align:center;padding:2rem;background:var(--bg2);border-radius:12px;border:0.5px solid var(--border);margin-top:1rem"><div class="spinner" style="margin:0 auto 1rem"></div><div style="font-size:13px;color:var(--text2)">Writing your viral script... ✍️</div></div>`;
+  const scriptTypes={story:'my entrepreneurship story as a teen',product:'showing and promoting my product/service',tips:'sharing business tips for other teens',reveal:'revealing my results and income',daylife:'a day in my life as a teen entrepreneur',howto:'how I started my business'};
+  const platforms={tiktok:'TikTok (15-60 seconds)',reels:'Instagram Reels (15-60 seconds)',both:'TikTok and Instagram Reels (15-60 seconds)'};
+  const prompt=`You are a viral social media script writer for teenage entrepreneurs. Write a script for a ${platforms[selectedPlatform]} video about: ${scriptTypes[selectedScriptType]}.\n\nBusiness info: ${business}\n\nWrite a script that feels authentic, teen-friendly, and NOT corporate. Use casual language. Make it genuinely engaging.\n\nRespond ONLY with valid JSON, no markdown:\n{"hook":"The very first 3 seconds — one punchy sentence that stops the scroll","script":"The full word-for-word script (use line breaks for pauses). Include [SHOW X] directions for what to show on camera.","caption":"The full Instagram/TikTok caption with emojis and hashtags","tips":["tip 1 for filming this","tip 2","tip 3"],"duration":"estimated video duration e.g. 30-45 seconds"}`;
+  try{
+    const r=await fetch(BACKEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'script',prompt:prompt})});
+    const raw=await r.json();let text=Array.isArray(raw.content)?raw.content.map(i=>i.text||'').join(''):raw.content||'';
+    text=text.replace(/```json|```/g,'').trim();const res=JSON.parse(text);
+    result.innerHTML=`
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:1rem">
+        <div class="script-block">
+          <div class="script-block-label">🎣 Hook — first 3 seconds</div>
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--cyan);line-height:1.4">"${res.hook}"</div>
+          <button class="copy-btn" onclick="copyText(this,'${res.hook.replace(/'/g,"\\'")}')">Copy hook</button>
         </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:0.75rem;text-align:center">Ready to post on TikTok or Instagram 🚀</div>
+        <div class="script-block">
+          <div class="script-block-label">📝 Full script <span style="color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">${res.duration}</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.8;white-space:pre-line">${res.script}</div>
+          <button class="copy-btn" onclick="copyText(this,\`${res.script.replace(/`/g,'\\`')}\`)">Copy script</button>
+        </div>
+        <div class="script-block">
+          <div class="script-block-label">✍️ Caption + hashtags</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.7">${res.caption}</div>
+          <button class="copy-btn" onclick="copyText(this,'${res.caption.replace(/'/g,"\\'")}')">Copy caption</button>
+        </div>
+        <div class="script-block">
+          <div class="script-block-label">🎥 Filming tips</div>
+          ${res.tips.map(t=>`<div style="font-size:12px;color:var(--text2);display:flex;gap:6px;align-items:flex-start;margin-bottom:4px"><span style="color:var(--cyan);flex-shrink:0">→</span>${t}</div>`).join('')}
+        </div>
+        <button onclick="generateScript()" style="padding:9px;border-radius:99px;border:0.5px solid var(--border2);background:transparent;color:var(--text2);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif">↺ Generate another script</button>
       </div>`;
-  } catch(e) {
-    result.innerHTML = `<div style="background:var(--red-bg);border:0.5px solid rgba(239,68,68,0.2);border-radius:12px;padding:1rem;margin-top:0.75rem;font-size:13px;color:var(--red)">Something went wrong: ${e.message}</div>`;
-  }
-  btn.disabled = false;
-  btn.textContent = '✦ Generate image';
+  }catch(e){result.innerHTML=`<div style="background:var(--red-bg);border:0.5px solid rgba(239,68,68,0.2);border-radius:12px;padding:1rem;margin-top:0.75rem;font-size:13px;color:var(--red)">Something went wrong: ${e.message}</div>`;}
+  btn.disabled=false;btn.textContent='✦ Generate my script';
 }
-function toggleTask(id) {
-  const data = loadData();
-  const tasks = data.tasks || {};
-  tasks[id] = !tasks[id];
-  saveData({ tasks });
-  renderTask(id, tasks[id]);
-  updateTaskCount(tasks);
-}
-function renderTask(id, done) {
-  const li = document.getElementById('task-' + id);
-  const icon = document.getElementById('task-icon-' + id);
-  if (!li || !icon) return;
-  if (done) { li.classList.add('done'); icon.className = 'ti ti-circle-check'; }
-  else { li.classList.remove('done'); icon.className = 'ti ti-circle'; }
-}
-function updateTaskCount(tasks) {
-  const count = Object.values(tasks).filter(Boolean).length;
-  const el = document.getElementById('stat-tasks');
-  if (el) el.textContent = count;
-}
-function toggleMilestone(id) {
-  const data = loadData();
-  const ms = data.milestones || {};
-  ms[id] = !ms[id];
-  saveData({ milestones: ms });
-  renderMilestone(id, ms[id]);
-}
-function renderMilestone(id, done) {
-  const el = document.getElementById('ms-' + id);
-  const icon = document.getElementById('ms-icon-' + id);
-  const sub = document.getElementById('ms-sub-' + id);
-  if (!el || !icon) return;
-  el.className = 'milestone' + (done ? ' done' : '');
-  icon.className = done ? 'ti ti-circle-check' : 'ti ti-lock';
-  icon.style.color = done ? 'var(--cyan)' : 'var(--text3)';
-  if (sub) sub.textContent = done ? 'Completed ✓' : 'Not done yet';
-}
-function loadTrackerData() {
-  const data = loadData();
-  const tasks = data.tasks || {};
-  const ms = data.milestones || {};
-  const days = (data.daysActive || []).length;
-  for (let i = 0; i <= 11; i++) renderTask(i, !!tasks[i]);
-  for (let i = 1; i <= 4; i++) renderMilestone(i, !!ms[i]);
-  updateTaskCount(tasks);
-  const el = document.getElementById('stat-days');
-  if (el) el.textContent = days || 1;
-}
-window.addEventListener('load', () => {
-  updateDaysActive();
-  smartStart();
-});
+
+function copyText(btn,text){navigator.clipboard.writeText(text).then(()=>{const orig=btn.textContent;btn.textContent='Copied! ✓';btn.style.color='var(--cyan)';setTimeout(()=>{btn.textContent=orig;btn.style.color='';},2000);});}
+
+function toggleTask(id){const data=loadData();const tasks=data.tasks||{};tasks[id]=!tasks[id];saveData({tasks});renderTask(id,tasks[id]);updateTaskCount(tasks);}
+function renderTask(id,done){const li=document.getElementById('task-'+id);const icon=document.getElementById('task-icon-'+id);if(!li||!icon)return;if(done){li.classList.add('done');icon.className='ti ti-circle-check';}else{li.classList.remove('done');icon.className='ti ti-circle';}}
+function updateTaskCount(tasks){const count=Object.values(tasks).filter(Boolean).length;const el=document.getElementById('stat-tasks');if(el)el.textContent=count;}
+function toggleMilestone(id){const data=loadData();const ms=data.milestones||{};ms[id]=!ms[id];saveData({milestones:ms});renderMilestone(id,ms[id]);}
+function renderMilestone(id,done){const el=document.getElementById('ms-'+id);const icon=document.getElementById('ms-icon-'+id);const sub=document.getElementById('ms-sub-'+id);if(!el||!icon)return;el.className='milestone'+(done?' done':'');icon.className=done?'ti ti-circle-check':'ti ti-lock';icon.style.color=done?'var(--cyan)':'var(--text3)';if(sub)sub.textContent=done?'Completed ✓':'Not done yet';}
+function loadTrackerData(){const data=loadData();const tasks=data.tasks||{};const ms=data.milestones||{};const days=(data.daysActive||[]).length;for(let i=0;i<=11;i++)renderTask(i,!!tasks[i]);for(let i=1;i<=4;i++)renderMilestone(i,!!ms[i]);updateTaskCount(tasks);const el=document.getElementById('stat-days');if(el)el.textContent=days||1;}
+
+window.addEventListener('load',()=>{updateDaysActive();smartStart();});
 </script>
 </body>
 </html>
