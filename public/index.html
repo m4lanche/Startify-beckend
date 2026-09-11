@@ -37,8 +37,7 @@
     .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero-sub { font-size: 18px; color: var(--text2); line-height: 1.65; margin-bottom: 2.5rem; font-weight: 300; max-width: 520px; margin-left: auto; margin-right: auto; animation: fadeUp 0.6s 0.2s ease both; }
     .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
-    .btn-big { padding: 14px 28px; border-radius: 99px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.15s, opacity 0.15s; }
-    .btn-big:hover { transform: translateY(-1px); }
+    .btn-big { padding: 14px 28px; border-radius: 99px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.15s; }
     .btn-solid { background: var(--cyan); color: var(--bg); border: none; font-weight: 600; box-shadow: 0 0 30px rgba(0,200,224,0.25); }
     .btn-solid:hover { opacity: 0.9; }
     .btn-outline { background: transparent; color: var(--text); border: 0.5px solid var(--border2); }
@@ -53,8 +52,8 @@
     .section-title { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; color: var(--text); margin-bottom: 1.5rem; }
     .section-title span { background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .problem-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 3rem; }
-    .problem-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
-    .problem-card:hover { border-color: rgba(0,200,224,0.3); transform: translateY(-2px); }
+    .problem-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; transition: border-color 0.2s; }
+    .problem-card:hover { border-color: rgba(0,200,224,0.3); }
     .problem-icon { font-size: 28px; margin-bottom: 0.75rem; display: block; }
     .problem-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 0.5rem; }
     .problem-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
@@ -66,8 +65,8 @@
     .step-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 0.5rem; }
     .step-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
     .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
-    .feature { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; transition: border-color 0.2s, transform 0.2s; }
-    .feature:hover { border-color: rgba(0,200,224,0.25); transform: translateY(-2px); }
+    .feature { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; transition: border-color 0.2s; }
+    .feature:hover { border-color: rgba(0,200,224,0.25); }
     .feature-icon { width: 42px; height: 42px; border-radius: var(--radius); background: var(--cyan-dim); border: 0.5px solid rgba(0,200,224,0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
     .feature-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
     .feature-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
@@ -112,8 +111,7 @@
     .footer-text { font-size: 12px; color: var(--text3); }
     .glow-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,200,224,0.3), transparent); }
     @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    .reveal { opacity:0; transform:translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal { opacity: 0; }
     @media (max-width: 700px) {
       .problem-grid, .features-grid, .quotes-grid, .plans-grid { grid-template-columns: 1fr; }
       .steps-row { grid-template-columns: 1fr; }
@@ -248,16 +246,32 @@
   <div class="footer-logo">Start<span>ify</span></div>
   <div class="footer-text">Built by a teen, for teens. © 2026 Startify</div>
 </footer>
-<script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 60);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+<script type="module">
+import { animate, inView } from "https://cdn.jsdelivr.net/npm/motion@13.2.0/+esm";
+
+const easeOut = [0.22, 1, 0.36, 1];
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  inView(el, () => {
+    animate(
+      el,
+      { opacity: [0, 1], y: [24, 0] },
+      { duration: 0.6, delay: (i % 6) * 0.06, easing: easeOut }
+    );
+  }, { margin: '0px 0px -10% 0px' });
+});
+
+document.querySelectorAll('.btn-big, .plan-btn, .nav-cta').forEach((el) => {
+  el.addEventListener('mouseenter', () => animate(el, { scale: 1.04, y: -2 }, { duration: 0.2, easing: easeOut }));
+  el.addEventListener('mouseleave', () => animate(el, { scale: 1, y: 0 }, { duration: 0.2, easing: easeOut }));
+  el.addEventListener('mousedown', () => animate(el, { scale: 0.97 }, { duration: 0.1, easing: easeOut }));
+  el.addEventListener('mouseup', () => animate(el, { scale: 1.04 }, { duration: 0.15, easing: easeOut }));
+});
+
+document.querySelectorAll('.problem-card, .feature').forEach((el) => {
+  el.addEventListener('mouseenter', () => animate(el, { y: -4 }, { duration: 0.25, easing: easeOut }));
+  el.addEventListener('mouseleave', () => animate(el, { y: 0 }, { duration: 0.25, easing: easeOut }));
+});
 </script>
 </body>
 </html>
